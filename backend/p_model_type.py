@@ -45,3 +45,9 @@ class userfeedback(BaseModel):
 
 class deleterecord(BaseModel):
     student_id:int
+
+class getaudio(BaseModel):
+    preferred_name:str
+
+class getaudiophonetics(BaseModel):
+    phonetics_name:str
