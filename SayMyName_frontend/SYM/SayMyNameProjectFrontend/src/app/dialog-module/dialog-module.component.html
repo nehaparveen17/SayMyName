@@ -1,0 +1,14 @@
+<h2 mat-dialog-title style="background-color: #cac7ff; font-size: 17px;">Confirmation Details</h2> 
+<div mat-dialog-content> 
+  <p>Student ID: {{data?.studentId}}</p>
+  <p>Preferred Name: {{data?.preferredName}}</p> 
+  <p>Phonetics: {{data?.Phonetics}}</p>
+  <!-- <mat-form-field> 
+    <input matInput [(ngModel)]="data.animal"> 
+  </mat-form-field>  -->
+</div> 
+<div mat-dialog-actions> 
+  <!-- <button mat-button (click)="onCancel()">No Thanks</button>  -->
+  <button mat-button [mat-dialog-close]="data.animal"  
+             cdkFocusInitial style="margin-left: 78%;">Ok</button> 
+</div>
