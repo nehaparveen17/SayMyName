@@ -34,7 +34,7 @@ app = FastAPI()
 origins = ["http://localhost.tiangolo.com",
     "https://localhost.tiangolo.com",
     "http://localhost",
-    "http://localhost:9090"]
+    "http://localhost:4200"]
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
