@@ -4,7 +4,7 @@ services:
   app:
     build: .
     ports:
-      - "9765:8081"
+      - "8081:8081"
     depends_on:
       - db
     environment:
