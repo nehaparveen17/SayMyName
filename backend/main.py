@@ -117,7 +117,6 @@ def tt_speech(details:p_model_type.Post, response:Response, db: Session= Depends
 
     results = db.query(models.Votes).filter(models.Votes.name.in_(name_list)).order_by(models.Votes.votes.desc()).limit(3).all()
 
-    print(len(results))
     if len(results) == 0:
         pro_data["data_in_votes_table"] = False
     elif len(results)>0:
@@ -137,12 +136,12 @@ def selection(details:p_model_type.Selection, db: Session= Depends(get_db)):
 
 #Checking to see if the created record is new, if details.data_in_votes_table is true then data exists so votes in vote table will be updated 
     if details.data_in_votes_table is True:
-        print("details exists")
+
         getting_votes = db.query(models.Votes).filter(models.Votes.phonetic.in_(details.phonetics_selection)).all()
-        print(getting_votes)
+
 
         current_vote = [{"id": x.votes_id,"name": x.name, "phonetic": x.phonetic, "votes":x.votes, "exist_in_phonetics_db": x.exist_in_phonetics_db} for x in getting_votes]
-        print(current_vote)
+
         try:
             print(current_vote[0]["id"])
         except IndexError as e:
@@ -254,12 +253,9 @@ async def get_students(studentID: str = None,
                  )
             )
 
-
-    print(query)
-
     if studentID:
         query = query.filter(models.Student_data.student_id == studentID)
-        print(query)
+
     if firstname:
         query = query.filter(models.Student_data.first_name.ilike(f'%{firstname}%'))
     if lastname:
@@ -413,14 +409,11 @@ def delete_record(details:p_model_type.deleterecord, db: Session= Depends(get_db
             "message": "Deleted record successfully"}
 
 @app.get("/getaudiophonetics", status_code=status.HTTP_200_OK)
-def get_audio(details:p_model_type.getaudiophonetics, db: Session=Depends(get_db)):
-    data = {
-        "phonetics_name" :details.phonetics_name.lower()
-    }
+def get_audio(phonetics_name:str, db: Session=Depends(get_db)):
 
-    print(data["phonetics_name"])
-    different_language(text=data["phonetics_name"], lang="en")
-    file_path = f'{data["phonetics_name"]}.wav'
+
+    different_language(text=phonetics_name, lang="en")
+    file_path = f'{phonetics_name}.wav'
     try:
         with open(file_path, "rb") as file:  # Open in binary mode 'rb'
             audio_binary_data = file.read()  # Read binary data
@@ -440,13 +433,11 @@ def get_audio(details:p_model_type.getaudiophonetics, db: Session=Depends(get_db
 
 
 @app.get("/getaudio", status_code=status.HTTP_200_OK)
-def get_audio(details:p_model_type.getaudio, db: Session=Depends(get_db)):
-    data = {
-        "preferred_name" :details.preferred_name
-    }
+def get_audio(preferred_name:str, db: Session=Depends(get_db)):
 
-    different_language(text=data["preferred_name"], lang="en")
-    file_path = f'{data["preferred_name"]}.wav'
+
+    different_language(text=preferred_name, lang="en")
+    file_path = f'{preferred_name}.wav'
     try:
         with open(file_path, "rb") as file:  
             audio_binary_data = file.read()  
