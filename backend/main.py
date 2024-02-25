@@ -7,11 +7,11 @@ import models
 from database import engine, SessionLocal
 from sqlalchemy.orm import Session
 from sqlalchemy import and_
-import os
+
 from sqlalchemy import exc
 from fastapi.responses import StreamingResponse
 import io
-import os
+
 from dotenv import load_dotenv
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -19,7 +19,9 @@ from fastapi.middleware.cors import CORSMiddleware
 #Database Creation
 # This will create all the tables that are present in models.py automatically, in the future if you are adding anything new table add in models.py
 load_dotenv()
-DATABASE_URL = os.environ.get("SQLALCHEMY_DATABASE_URL_DOCKER")
+
+
+# DATABASE_URL = f'postgresql://POSTGRES_USER:POSTGRES_PASSWORD@POSTGRES_HOSTNAME:POSTGRES_PORT/POSTGRES_DB'
 models.Base.metadata.create_all(bind=engine)
 
 def get_db():
