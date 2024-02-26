@@ -2,7 +2,9 @@ version: '3'
 
 services:
   app:
-    build: .
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
     ports:
       - "8081:8081"
     environment:
@@ -27,3 +29,12 @@ services:
     volumes:
       - /path/to/db/data:/var/lib/postgresql/data
 
+  
+  frontend:
+    build:
+      context: ./SayMyNameProjectFrontend
+      dockerfile: Dockerfile
+    ports:
+      - "4200:4200"
+    depends_on:
+      - app
