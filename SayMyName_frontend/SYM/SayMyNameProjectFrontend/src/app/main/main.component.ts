@@ -116,41 +116,6 @@ export class MainComponent {
     if (this.value == '' || this.value == undefined || this.value == null) {
       this.show_save_button = false
     }
-    this.get_audio_for_phonetics = this.value?.toLowerCase()
-  }
-
-
-  playAudio(): void {
-    // Ensure the studentName is provided
-    // if (!this.studentName) {
-    //   console.error('Student name is required.');
-    //   return;
-    // }
-
-    // Append the student name to the API URL as a query parameter
-    const apiUrl = `http://127.0.0.1:8081/getaudio?preferred_name=` + this.get_audio_for_phonetics;
-
-    // Send a GET request to your backend API to generate and play the audio
-    this.httpClient.get(apiUrl, { responseType: 'blob' })
-      .subscribe(
-        (response: any) => {
-          // Create a blob URL from the audio data received
-          const blob = new Blob([response], { type: 'audio/wav' });
-          const url = window.URL.createObjectURL(blob);
-
-          // Create an audio element and set its source to the blob URL
-          const audio = new Audio();
-          audio.src = url;
-
-          // Play the audio
-          audio.play();
-        },
-        error => {
-          console.error('Error playing audio:', error);
-          // Handle error as needed
-        }
-      );
-    // delete the above
   }
 
 
