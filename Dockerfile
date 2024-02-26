@@ -10,7 +10,6 @@ ENV PYTHONPATH "${PYTHONPATH}:/app/backend"
 WORKDIR /app
 COPY backend /app
 
-
 # Install dependencies
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
@@ -22,4 +21,4 @@ COPY . /app
 EXPOSE 8081
 
 # Command to run the application
-CMD ["uvicorn", "backend.main:app", "--host", "0.0.0.0", "--port", "8081", "--reload"]
+CMD ["uvicorn", "backend.main:app", "--host", "0.0.0.0", "--port", "8081"]
