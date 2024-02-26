@@ -11,6 +11,7 @@ from sqlalchemy import and_
 from sqlalchemy import exc
 from fastapi.responses import StreamingResponse
 import io
+import os
 
 from dotenv import load_dotenv
 from fastapi.middleware.cors import CORSMiddleware
@@ -437,5 +438,5 @@ async def get_audio(preferred_name:str, db: Session=Depends(get_db)):
             "message": f"unable to get audio at this moment: {e}"
         }
 
-if __name__ == "__main__":
-    uvicorn.run("main:app", port=8081, log_level="info", reload=True)
+# if __name__ == "__main__":
+#     uvicorn.run("main:app", port=8081, log_level="info", reload=True)
