@@ -5,7 +5,7 @@ FROM node:20 as build
 WORKDIR /app/frontend
 
 # Copy package.json and package-lock.json to the container
-COPY package*.json ./app/frontend
+COPY package*.json ./
 
 # Install dependencies
 RUN npm install
