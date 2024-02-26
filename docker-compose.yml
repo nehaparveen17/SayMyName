@@ -5,11 +5,14 @@ services:
     build: .
     ports:
       - "8081:8081"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=123456
+      - POSTGRES_DB=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_HOSTNAME=db
     depends_on:
       - db
-    environment:
-      - DATABASE_URL=postgresql://postgres:123456@db:5432/postgres
-
     
 
   db:

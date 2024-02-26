@@ -117,7 +117,6 @@ export class MainComponent {
       this.show_save_button = false
     }
     this.get_audio_for_phonetics = this.value?.toLowerCase()
-    this.play_audio_button = true;
   }
 
 

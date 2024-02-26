@@ -24,11 +24,10 @@ class Namepronounciation(Base):
     __tablename__ = "pronounciation"
 
     id = Column(Integer, primary_key=True, nullable=False)
-    student_id = Column(Integer, ForeignKey(Student_data.student_id), nullable=False)
+    student_id = Column(Integer, ForeignKey(Student_data.student_id), nullable=False, unique=True)
     name = Column(String, nullable=False)
     phonetics_selection = Column(String, nullable=False)
     audio_selection = Column(String)
-    # votes = Column(Integer, nullable=False, server_default= text('0'))
     show = Column(Boolean, server_default='False') 
      
 class Phonetics(Base):

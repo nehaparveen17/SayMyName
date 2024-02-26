@@ -1,23 +1,28 @@
 
-from fastapi import FastAPI, Depends, HTTPException, status, Response
+from fastapi import FastAPI, Depends, HTTPException, status
 import uvicorn
 import p_model_type
 from different_languages import different_language
 import models
-import models
 from database import engine, SessionLocal
 from sqlalchemy.orm import Session
 from sqlalchemy import and_
-import os
+
 from sqlalchemy import exc
 from fastapi.responses import StreamingResponse
 import io
+import os
 
-
+from dotenv import load_dotenv
 from fastapi.middleware.cors import CORSMiddleware
 
 
 #Database Creation
+# This will create all the tables that are present in models.py automatically, in the future if you are adding anything new table add in models.py
+load_dotenv()
+
+
+# DATABASE_URL = f'postgresql://POSTGRES_USER:POSTGRES_PASSWORD@POSTGRES_HOSTNAME:POSTGRES_PORT/POSTGRES_DB'
 models.Base.metadata.create_all(bind=engine)
 
 def get_db():
@@ -30,6 +35,7 @@ def get_db():
 
 app = FastAPI()
 
+#Add whitelisting ip's below in origins. if an ip is added they will be able to connect to backend current frontend app running in port 4200
 #CORS to connect to any ip Need to add ip's and ports here
 origins = ["http://localhost.tiangolo.com",
     "https://localhost.tiangolo.com",
@@ -44,14 +50,14 @@ app.add_middleware(
 )
 
 
-@app.get("/")
-async def root(request):
-    return {"Hello": "World"}
+@app.get("/ping")
+async def root():
+    return {"You are connected to backend, there might be ip whitelisting that needs to be done in the backend, please reach out to admin team"}
 
 
 #Create student Record
 @app.post("/createpost", status_code=status.HTTP_201_CREATED )
-def tt_speech(details:p_model_type.Post, response:Response, db: Session= Depends(get_db)):
+async def tt_speech(details:p_model_type.Post, db: Session= Depends(get_db)):
 
 
     new_dict = details.dict()
@@ -63,19 +69,11 @@ def tt_speech(details:p_model_type.Post, response:Response, db: Session= Depends
     name = [details.first_name, details.last_name]
     full_name = " ".join(name)
     new_dict["full_name"] = full_name.lower()
-    file_name = full_name+str(details.student_id)
-    preferred_name = new_dict["preferred_name"]
 
     #creates Audio
-    different_language(text=preferred_name,lang="en")
-    with open(f"{preferred_name}.wav", "rb") as file: 
-        audio_binary = file.read()
-        # print(type(audio_binary))
-    new_dict["audio_binary"] = audio_binary
-    if os.path.exists(f"{preferred_name}.wav"):
-        os.remove(f"{preferred_name}.wav")
-    with open(f"{file_name}.wav", "wb") as file:
-        file.write(audio_binary)
+
+    new_dict["audio_binary"] = "can be used in future to store the audio"
+
 
     #adding student details to DB
     new_student_details = models.Student_data(**new_dict)
@@ -88,11 +86,6 @@ def tt_speech(details:p_model_type.Post, response:Response, db: Session= Depends
         db.rollback()
         return {"status": "failed",
                 "message":"Student ID already exists, please contact admin to have your record deleted"}
-        # if "duplicate key value violates unique constraint" in str(e):
-        #     raise HTTPException(status_code=404, detail="Student ID already exists")   
-        db.rollback()
-        return {"status": "failed",
-                "message":"Student ID already exists"}
 
     #logic to get the phonetics from the DB
     phonetics_data = db.query(models.Phonetics).filter(models.Phonetics.names == new_student_details.preferred_name.lower()).all()
@@ -114,7 +107,7 @@ def tt_speech(details:p_model_type.Post, response:Response, db: Session= Depends
 
     name_list = pro_data["preferred_name"].split(",")
 
-
+#calling DB to get data
     results = db.query(models.Votes).filter(models.Votes.name.in_(name_list)).order_by(models.Votes.votes.desc()).limit(3).all()
 
     if len(results) == 0:
@@ -131,98 +124,89 @@ def tt_speech(details:p_model_type.Post, response:Response, db: Session= Depends
 
 #creating selection record
 @app.post("/selection", status_code=status.HTTP_201_CREATED)
-def selection(details:p_model_type.Selection, db: Session= Depends(get_db)):
+async def selection(details:p_model_type.Selection, db: Session= Depends(get_db)):
 
+    input_details = {
+    "student_id": details.student_id,
+    "name": details.name[0].lower(),
+    "phonetics_selection":details.phonetics_selection[0],
+    "show":details.show,
+    "data_in_votes_table": details.data_in_votes_table,
+    "audio_selection": details.audio_selection
+    }
 
-#Checking to see if the created record is new, if details.data_in_votes_table is true then data exists so votes in vote table will be updated 
-    if details.data_in_votes_table is True:
+#calling Db to get Data
+    getting_votes = db.query(models.Votes).filter(and_(models.Votes.phonetic == input_details["phonetics_selection"], models.Votes.name == input_details["name"])).first()
 
-        getting_votes = db.query(models.Votes).filter(models.Votes.phonetic.in_(details.phonetics_selection)).all()
-
-
-        current_vote = [{"id": x.votes_id,"name": x.name, "phonetic": x.phonetic, "votes":x.votes, "exist_in_phonetics_db": x.exist_in_phonetics_db} for x in getting_votes]
-
-        try:
-            print(current_vote[0]["id"])
-        except IndexError as e:
-            return {"status":'failed',
-                    "message":"Data is not present in votes table please check data_in_votes_table files in set to false"}
-        statement_dict = []
-        voting_data_dict = []
-        for i in range(len(details.name)):
-            data = {"student_id":details.student_id,
-                    "name":details.name[i],
-                    "phonetics_selection":details.phonetics_selection[i],
-                    "audio_selection":details.audio_selection[i],
-                    "show":details.show}
-            statement_dict.append(data)  
-        for stat_dict in statement_dict:
-            new_data = models.Namepronounciation(**stat_dict)
-            db.add(new_data)
-            db.commit()
-        for i in range(len(current_vote)):
-            voting_data = {"votes_id": current_vote[i]["id"],
-                        "name":details.name[i],
-                        "phonetic": details.phonetics_selection[i],
-                        "votes": current_vote[i]["votes"] +1}
-            voting_data_dict.append(voting_data)
-
-        print(voting_data_dict)
-        for vote_dict in voting_data_dict:
-            print(vote_dict)
-            post_query = db.query(models.Votes).filter(models.Votes.votes_id == vote_dict["votes_id"])
-            print(post_query)
-            post = post_query.first()
-            print(post)
-            if post == None:
-                raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"post with id: {vote_dict['votes_id']} doesn't exist")
-            try:
-                post_query.update(vote_dict, synchronize_session=False)
-                db.commit()
-            except Exception as e:
-                print(e) 
-                db.rollback()
-            
-# data not present in votes table a new record will be created with vote as 1
-    if details.data_in_votes_table is False:
-        statement_dict = []
-        voting_data_dict = []
-        for i in range(len(details.name)):
-            data = {"student_id":details.student_id,
-                    "name":details.name[i],
-                    "phonetics_selection":details.phonetics_selection[i],
-                    "audio_selection":details.audio_selection,
-                    "show":details.show}
-            statement_dict.append(data) 
+#check if the record exist in db if not create a new record in votes table or else update the exisitng record by incrementing the vote
+    if getting_votes == None:
+            selection_data = {"student_id":input_details["student_id"],
+                    "name":input_details["name"],
+                    "phonetics_selection":input_details["phonetics_selection"],
+                    "audio_selection":input_details["audio_selection"],
+                    "show":input_details["show"]} 
 
             voting_data = {
-                        "name":details.name[i],
-                        "phonetic": details.phonetics_selection[i],
+                        "name":input_details["name"],
+                        "phonetic":input_details["phonetics_selection"],
                         "votes":1}
-            voting_data_dict.append(voting_data)
-             
-        for stat_dict in statement_dict:
-            new_data = models.Namepronounciation(**stat_dict)
-            db.add(new_data)
-            db.commit()
-
-        # for i in range(len(details.name)):
-        #     voting_data = {
-        #                 "name":details.name[i],
-        #                 "phonetic": details.phonetics_selection[i],
-        #                 "votes":1}
-        #     voting_data_dict.append(voting_data)
-        for vote_dict in voting_data_dict:
-            new_data = models.Votes(**vote_dict)
+            #add to db
+            new_data = models.Namepronounciation(**selection_data)
+            try:
+                db.add(new_data)
+                db.commit()
+            except Exception as e:
+                db.rollback()
+                return {"status":"failed",
+                        "message":f"couldn't process the request {e}"}
+            #add to db
+            new_data = models.Votes(**voting_data)
             try:
                 db.add(new_data)
                 db.commit()
             except Exception as e:
                 print(f"couldn't add the record because {e}")
                 db.rollback()
+                return {"status":"failed",
+                        "message":f"couldn't process the request {e}"}
 
+    
+    else:
+        current_vote = {"id": getting_votes.votes_id,"name": getting_votes.name, "phonetic": getting_votes.phonetic, "votes":getting_votes.votes, "exist_in_phonetics_db": getting_votes.exist_in_phonetics_db}
+        selection_data = {"student_id":input_details["student_id"],
+                    "name":input_details["name"],
+                    "phonetics_selection":input_details["phonetics_selection"],
+                    "audio_selection":input_details["audio_selection"],
+                    "show":input_details["show"]} 
+        #add to db
+        new_data = models.Namepronounciation(**selection_data)
+        try:
+            db.add(new_data)
+            db.commit()
+        except Exception as e:
+            db.rollback()
+            return {"status":"failed",
+                    "message":f"couldn't process the request {e}."}
+        
+        voting_data = {"votes_id": current_vote["id"],
+                    "name":input_details["name"],
+                    "phonetic":input_details["phonetics_selection"],
+                    "votes": current_vote["votes"] +1}
+        #calling DB to get details
+        post_query = db.query(models.Votes).filter(models.Votes.votes_id == voting_data["votes_id"])
+        post = post_query.first()
+        if post == None:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"post with id: {voting_data['votes_id']} doesn't exist")
+        try:
+            post_query.update(voting_data, synchronize_session=False)
+            db.commit()
+        except Exception as e:
+            db.rollback()
+            return {"status":"failed",
+                    "message":f"couldn't process the request {e}"}
     return {"status":'success',
             "message":''}
+
 
 @app.get("/getRecords/")
 async def get_students(studentID: str = None,
@@ -236,6 +220,7 @@ async def get_students(studentID: str = None,
     limit: int = 10,
     db: Session= Depends(get_db)):
 
+#calling DB to get details
     query =(
     db.query(models.Student_data.student_id, 
              models.Student_data.first_name,
@@ -324,6 +309,7 @@ async def selection(details:p_model_type.Update, db: Session= Depends(get_db)):
                         "name":details.preferred_name.lower(),
                         "phonetic": details.phonetics_selection,
                         "votes":1}
+        #add to db
         new_data = models.Votes(**voting_data)
         try:
                 db.add(new_data)
@@ -339,6 +325,7 @@ async def selection(details:p_model_type.Update, db: Session= Depends(get_db)):
                         "name":details.preferred_name,
                         "phonetic": details.phonetics_selection,
                         "votes":getting_votes.votes+1}
+        #calling db to get details
         try:
             db.query(models.Votes).filter(models.Votes.votes_id == getting_votes.votes_id).update(voting_data, synchronize_session=False)
             db.commit()
@@ -348,7 +335,7 @@ async def selection(details:p_model_type.Update, db: Session= Depends(get_db)):
                     "message": f"something went wrong when executing probable error {e}"}
 
     
-
+#calling DB to get details
     try:
         db.query(models.Student_data).filter(models.Student_data.student_id == details.student_id).update(student_data, synchronize_session=False)
         db.commit()
@@ -365,15 +352,15 @@ async def selection(details:p_model_type.Update, db: Session= Depends(get_db)):
     
     
 @app.post("/userfeedback", status_code=status.HTTP_201_CREATED)
-def user_feedback(details:p_model_type.userfeedback, db: Session= Depends(get_db)):
+async def user_feedback(details:p_model_type.userfeedback, db: Session= Depends(get_db)):
     data = {
         "student_id":details.student_id,
         "userfeedback":details.userfeedback
     }
-    print(data)
+
+    #add to db
     try:
         new_data = models.Userfeedback(**data)
-        print(new_data)
         db.add(new_data)
         db.commit()
     except Exception as e:
@@ -385,10 +372,8 @@ def user_feedback(details:p_model_type.userfeedback, db: Session= Depends(get_db
             "message": ""}
 
 @app.delete("/deleterecord", status_code=status.HTTP_201_CREATED)
-def delete_record(details:p_model_type.deleterecord, db: Session= Depends(get_db)):
-    data = {
-        "student_id": details.student_id
-    }
+async def delete_record(details:p_model_type.deleterecord, db: Session= Depends(get_db)):
+ #calling db to get details
     record_details = db.query(models.Student_data).filter(models.Student_data.student_id == details.student_id).first()
     if record_details != None:
         try:
@@ -409,15 +394,13 @@ def delete_record(details:p_model_type.deleterecord, db: Session= Depends(get_db
             "message": "Deleted record successfully"}
 
 @app.get("/getaudiophonetics", status_code=status.HTTP_200_OK)
-def get_audio(phonetics_name:str, db: Session=Depends(get_db)):
-
+async def get_audio(phonetics_name:str, db: Session=Depends(get_db)):
 
     different_language(text=phonetics_name, lang="en")
     file_path = f'{phonetics_name}.wav'
     try:
         with open(file_path, "rb") as file:  # Open in binary mode 'rb'
             audio_binary_data = file.read()  # Read binary data
-            # new_dict_audio = {"audio_binary_data": audio_binary_data}  # Store in dictionary
 
         # Remove temporary WAV file
         if os.path.exists(file_path):
@@ -433,8 +416,7 @@ def get_audio(phonetics_name:str, db: Session=Depends(get_db)):
 
 
 @app.get("/getaudio", status_code=status.HTTP_200_OK)
-def get_audio(preferred_name:str, db: Session=Depends(get_db)):
-
+async def get_audio(preferred_name:str, db: Session=Depends(get_db)):
 
     different_language(text=preferred_name, lang="en")
     file_path = f'{preferred_name}.wav'

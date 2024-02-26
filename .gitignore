@@ -1,2 +1,5 @@
 venv
+SayMyName_frontend/SYM/SayMyNameProjectFrontend/node_modules
+SayMyName_frontend/SYM/SayMyNameProjectFrontend/.angular
 backend/__pycache__
+.env

@@ -1,12 +1,21 @@
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import sessionmaker, declarative_base
 import pandas as pd
+import os
 
 # SQLALCHEMY_DATABASE_URL = 'postgresql://postgres:123456@localhost/postgres'
-SQLALCHEMY_DATABASE_URL = 'postgresql://postgres:123456@db/postgres'
+# # SQLALCHEMY_DATABASE_URL = 'postgresql://postgres:123456@db/postgres'
 
-engine = create_engine(SQLALCHEMY_DATABASE_URL)
+POSTGRES_USER = os.environ.get("POSTGRES_USER")
+POSTGRES_PASSWORD = os.environ.get("POSTGRES_PASSWORD")
+POSTGRES_DB = os.environ.get("POSTGRES_DB")
+POSTGRES_PORT = os.environ.get("POSTGRES_PORT")
+POSTGRES_HOSTNAME = os.environ.get("POSTGRES_HOSTNAME")
+
+DATABASE_URL = f'postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_HOSTNAME}:{POSTGRES_PORT}/{POSTGRES_DB}'
+
+engine = create_engine(DATABASE_URL)
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
