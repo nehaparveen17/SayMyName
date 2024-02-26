@@ -91,12 +91,27 @@
                                     <span><mat-icon class="decision-icon">edit</mat-icon></span>
                                 </button>
                             </ng-template>
+<!-- Play audio button -->
+                            <ng-template [ngIf]="play_audio_button === true">
+                                <button mat-raised-button matTooltipPosition="above" [disabled] = "play_audio_button_flag"
+                                matTooltip="Play Audio" class="edit-button" type="submit" style="background: #4997d0;"
+                                (click)="playAudio()">
+                                <span><mat-icon class="decision-icon">play_arrow</mat-icon></span>
+                            </button>
+                        </ng-template>
+<!-- --------------------- -->
                               <ng-template [ngIf]="show_save_button === true">
                                 <button mat-raised-button matTooltipPosition="above" matTooltip="Save" [disabled] = "save_button_flag"
                                     class="save-button" type="submit" (click)="handleUserAction('save','')">
                                     <span><mat-icon class="decision-icon">save_alt</mat-icon></span>
                                 </button>
                             </ng-template>
+
+                            <!-- <div>
+                                <button (click)="playAudio()">Play Audio</button>
+                              </div> -->
+
+
                             </span>
                         <!-- </ng-template> -->
                     </div>
@@ -131,6 +146,13 @@
                         <p>First Name: {{this.first_name}}</p>
                         <p>Last Name: {{this.last_name}}</p>
                         <p>Phonetics: {{this.phonetics_selection}}</p>
+                        <ng-template [ngIf]="play_audio_button === true">
+                            <button mat-raised-button matTooltipPosition="above" [disabled] = "play_audio_button_flag"
+                            matTooltip="Play Audio" class="edit-button" type="submit" style="background: #4997d0; margin-left: 15%;"
+                            (click)="playAudio()">
+                            <span><mat-icon class="decision-icon">play_arrow</mat-icon></span>
+                        </button>
+                    </ng-template>
                     </div>
                 </mat-card>
             </div>
