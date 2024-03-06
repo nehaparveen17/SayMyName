@@ -211,6 +211,63 @@ async def selection(details:p_model_type.Selection, db: Session= Depends(get_db)
             "message":''}
 
 
+@app.get("/getRecord/", status_code=status.HTTP_200_OK)
+async def get_students(studentID: str = None, db: Session= Depends(get_db)):
+
+
+
+#calling DB to get details
+    query =(
+    db.query(models.Student_data.student_id, 
+             models.Student_data.first_name,
+             models.Student_data.last_name,
+             models.Student_data.preferred_name,
+             models.Namepronounciation.phonetics_selection,
+             models.Student_data.pronoun,
+             models.Student_data.course,
+             models.Student_data.intake,
+             models.Student_data.year,
+             models.Namepronounciation.show)
+             .join(
+                 models.Namepronounciation,
+                 models.Student_data.student_id == models.Namepronounciation.student_id
+                 )
+            )
+
+    if studentID:
+        results = query.filter(models.Student_data.student_id == studentID).all()
+
+        if not results:
+            return {
+                "status": "failed",
+            "message": f"StudentID: {studentID} doesn't exist"
+            }
+        else:
+            final_response = []
+            for record in results:
+                student_id, first_name,last_name,preferred_name, phonetics_selection, pronoun, course, intake, year, show = record
+                response_data = { "student_id": student_id,
+                            "first_name": first_name,
+                            "last_name": last_name,
+                            "preferred_name": preferred_name,
+                            "phonetics_selection": phonetics_selection,
+                            "pronoun":pronoun,
+                            "course":course,
+                            "intake":intake,
+                            "year":year,
+                            "show":show
+                            }
+                final_response.append(response_data)
+
+            return {"status": "success",
+                "results": final_response}
+    else:
+        return {
+            "status": "failed",
+            "message": "StudentID is empty"
+        }
+
+
 @app.get("/getRecords/", status_code=status.HTTP_200_OK)
 async def get_students(studentID: str = None,
     firstname: str = None,
