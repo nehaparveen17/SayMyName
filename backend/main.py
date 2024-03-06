@@ -40,17 +40,20 @@ app = FastAPI()
 origins = ["http://localhost.tiangolo.com",
     "https://localhost.tiangolo.com",
     "http://localhost",
-    "http://localhost:4200"]
+    "http://localhost:4200",
+    "http://app:4200",
+    "http://192.168.2.72:4200",
+    "http://10.28.5.119:4200"]
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
     allow_credentials=True,
-    allow_methods=["*"],
+    allow_methods=["GET", "POST", "PUT", "DELETE"],
     allow_headers=["*"],
 )
 
 
-@app.get("/ping")
+@app.get("/ping", status_code=status.HTTP_200_OK)
 async def root():
     return {"You are connected to backend, there might be ip whitelisting that needs to be done in the backend, please reach out to admin team"}
 
@@ -208,7 +211,7 @@ async def selection(details:p_model_type.Selection, db: Session= Depends(get_db)
             "message":''}
 
 
-@app.get("/getRecords/")
+@app.get("/getRecords/", status_code=status.HTTP_200_OK)
 async def get_students(studentID: str = None,
     firstname: str = None,
     lastname: str = None,
@@ -279,7 +282,7 @@ async def get_students(studentID: str = None,
         "results": final_response}
 
 
-@app.put("/update", status_code=status.HTTP_201_CREATED)
+@app.put("/update", status_code=status.HTTP_200_OK)
 async def selection(details:p_model_type.Update, db: Session= Depends(get_db)):
 
     full_name = details.first_name.lower()+" "+ details.last_name.lower()
@@ -288,6 +291,7 @@ async def selection(details:p_model_type.Update, db: Session= Depends(get_db)):
         "first_name":details.first_name.lower(),
         "last_name":details.last_name.lower(),
         "full_name":full_name,
+        "pronoun":details.pronoun,
         "preferred_name":details.preferred_name.lower(),
         "course":details.course.upper(),
         "intake":details.intake,
@@ -371,25 +375,29 @@ async def user_feedback(details:p_model_type.userfeedback, db: Session= Depends(
     return {"status": "success",
             "message": ""}
 
-@app.delete("/deleterecord", status_code=status.HTTP_201_CREATED)
-async def delete_record(details:p_model_type.deleterecord, db: Session= Depends(get_db)):
+@app.delete("/deleterecord", status_code=status.HTTP_200_OK)
+async def delete_record(student_id: str, db: Session= Depends(get_db)):
  #calling db to get details
-    record_details = db.query(models.Student_data).filter(models.Student_data.student_id == details.student_id).first()
+    try:
+        record_details = db.query(models.Student_data).filter(models.Student_data.student_id == student_id).first()
+    except Exception as e:
+        return {"status": "failed",
+                "message": f"error occured couldn't fetch details for student ID: {student_id}"}
     if record_details != None:
         try:
-            db.query(models.Namepronounciation).filter(models.Namepronounciation.student_id == details.student_id).delete(synchronize_session=False)
+            db.query(models.Namepronounciation).filter(models.Namepronounciation.student_id == student_id).delete(synchronize_session=False)
             db.commit()
-            db.query(models.Userfeedback).filter(models.Userfeedback.student_id == details.student_id).delete(synchronize_session=False)
+            db.query(models.Userfeedback).filter(models.Userfeedback.student_id == student_id).delete(synchronize_session=False)
             db.commit()
-            db.query(models.Student_data).filter(models.Student_data.student_id == details.student_id).delete(synchronize_session=False)
+            db.query(models.Student_data).filter(models.Student_data.student_id == student_id).delete(synchronize_session=False)
             db.commit()
         except Exception as e:
             db.rollback()
             return {"status": "failed",
                     "message": e}
     else:
-        return{"status": "success",
-               "message": f"Record with {details.student_id} doesn't exist in the system "}
+        return{"status": "failed",
+               "message": f"Record with {student_id} doesn't exist in the system "}
     return {"status": "success",
             "message": "Deleted record successfully"}
 

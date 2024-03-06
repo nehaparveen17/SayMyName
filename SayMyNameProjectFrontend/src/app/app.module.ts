@@ -11,7 +11,6 @@ import {MatCardModule} from '@angular/material/card';
 import { ToastrModule, provideToastr } from 'ngx-toastr';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxUiLoaderModule } from 'ngx-ui-loader';
-import { SpeechModule } from './speech';
 import {MatSelectModule} from '@angular/material/select';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatInputModule} from '@angular/material/input';
@@ -20,12 +19,16 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatButtonModule} from '@angular/material/button';
 import {MatDialogModule} from '@angular/material/dialog';
 import { DialogModuleComponent } from './dialog-module/dialog-module.component';
+import { StudentDeleteComponent } from './student-delete/student-delete.component';
+import { StudentEditViewComponent } from './student-edit-view/student-edit-view.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MainComponent,
     DialogModuleComponent,
+    StudentDeleteComponent,
+    StudentEditViewComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,7 +45,6 @@ import { DialogModuleComponent } from './dialog-module/dialog-module.component';
     MatRadioModule,
     MatInputModule,
     MatButtonModule,
-    SpeechModule,
     MatDialogModule,
     ToastrModule.forRoot(), // ToastrModule added
   ],
