@@ -30,19 +30,61 @@ The FastAPI application consists of the following components:
 
 5. **Utility Modules**: Additional utility modules such as `Split_word.py` and `different_languages.py` provide functionality for splitting words and handling different languages, respectively.
 
-## API Endpoints
+**Endpoints**
 
-The FastAPI application provides the following API endpoints:
+1. **Ping**
 
-1. **Create Student Record**: `POST /createpost` endpoint allows creating a new student record. It accepts a JSON payload containing details such as student name, course, and intake.
+   - **Method:** GET
+   - **Path:** /ping
+   - **Description:** Endpoint to check the connection to the backend.
 
-2. **Update Student Record**: `PUT /update` endpoint enables updating an existing student record. It accepts a JSON payload with updated student details.
+2. **Create Student Record**
 
-3. **Get Student Records**: `GET /getRecords/` endpoint retrieves student records based on various filters such as student ID, name, course, year, etc.
+   - **Method:** POST
+   - **Path:** /createpost
+   - **Description:** Endpoint to create a new student record in the database.
 
-4. **Submit User Feedback**: `POST /userfeedback` endpoint allows users to submit feedback. It accepts a JSON payload containing the student ID and feedback message.
+3. **Create Selection Record**
 
-5. **Manage Phonetic Selection**: The `selection` endpoint (`POST /selection`) manages phonetic selections. It updates existing selections or creates new ones based on user input.
+   - **Method:** POST
+   - **Path:** /selection
+   - **Description:** Endpoint to create a selection record for a student's phonetic preference.
+
+4. **Get Student Records**
+
+   - **Method:** GET
+   - **Path:** /getRecords/
+   - **Description:** Endpoint to retrieve student records based on various filters.
+
+5. **Update Student Record**
+
+   - **Method:** PUT
+   - **Path:** /update
+   - **Description:** Endpoint to update an existing student record.
+
+6. **Submit User Feedback**
+
+   - **Method:** POST
+   - **Path:** /userfeedback
+   - **Description:** Endpoint to submit user feedback.
+
+7. **Delete Student Record**
+
+   - **Method:** DELETE
+   - **Path:** /deleterecord
+   - **Description:** Endpoint to delete a student record from the database.
+
+8. **Get Phonetic Audio**
+
+   - **Method:** GET
+   - **Path:** /getaudiophonetics
+   - **Description:** Endpoint to retrieve audio files for phonetic names.
+
+9. **Get Audio**
+
+   - **Method:** GET
+   - **Path:** /getaudio
+   - **Description:** Endpoint to retrieve audio files for preferred names.
 
 ## Error Handling
 
