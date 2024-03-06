@@ -349,6 +349,7 @@
     .pronoun-dropdown {
         margin-left: 1.5%;
         margin-right: 1.5%;
+        width: 14%;
     }
 
     ::ng-deep .pronoun-dropdown.mat-mdc-form-field-type-mat-select:not(.mat-form-field-disabled) .mat-mdc-text-field-wrapper {
@@ -392,7 +393,29 @@
         height: 44px;
         background: #cac7ff;
         cursor: pointer;
-        margin-left: 2%;
+        margin-left: 0.5%;
+        margin-top: 1%;
+    }
+
+    .view-edit-button {
+        border: 0;
+        border-radius: 60px;
+        width: 8%;
+        height: 44px;
+        background: #cac7ff;
+        cursor: pointer;
+        margin-left: 0.5%;
+        margin-top: 1%;
+    }
+
+    .delete-button {
+        border: 0;
+        border-radius: 60px;
+        width: 5%;
+        height: 44px;
+        background: #cac7ff;
+        cursor: pointer;
+        margin-left: 0.5%;
         margin-top: 1%;
     }
 

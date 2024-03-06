@@ -8,6 +8,7 @@ import { HttpClient } from '@angular/common/http';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogModuleComponent } from '../dialog-module/dialog-module.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-main',
@@ -83,12 +84,14 @@ export class MainComponent {
   public play_audio_button: boolean = false
   public play_audio_button_flag: boolean = false
   public get_audio_for_phonetics: string = ""
+  public submit_button_flag: boolean = false
 
   constructor(private domSanitizer: DomSanitizer,
     private toastr: ToastrService,
     private httpClient: HttpClient,
     private ngxService: NgxUiLoaderService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -111,10 +114,12 @@ export class MainComponent {
   sendTheNewValue(event: any) {
     this.value = event?.target?.value;
     if (this.value !== '' || this.value !== undefined || this.value !== null) {
-      this.show_save_button = true
+      this.show_save_button = true;
+      this.play_audio_button = true;
     }
     if (this.value == '' || this.value == undefined || this.value == null) {
-      this.show_save_button = false
+      this.show_save_button = false;
+      this.play_audio_button = false;
     }
     this.get_audio_for_phonetics = this.value?.toLowerCase()
   }
@@ -157,7 +162,7 @@ export class MainComponent {
 
   // this method handles the user action from the user interface
   public handleUserAction = (type: string, event: any) => {
-    switch (type) {
+    switch (type.toLowerCase()) {
       case 'search': {
         this.display_content_card = false;
         this.display_content_card_for_view_only = false;
@@ -211,14 +216,6 @@ export class MainComponent {
                     else {
                       this.displayMessage('Preferred Name can only contain lower and uppercase alphabets including space.', 'ERROR')
                     }
-                 
-                 
-                // }
-                // else {
-                //   this.displayMessage('Please enter the pronoun', 'ERROR')
-                // }
-             
-
               }
               else {
                 this.displayMessage('Student ID should be of 9 digits', 'ERROR')
@@ -299,6 +296,14 @@ export class MainComponent {
         this.savePhonetics(reqObj)
         break;
       }
+      case 'delete': {
+        this.router.navigate(['/student-delete'])
+        break;
+      }
+      case 'view-edit': {
+        this.router.navigate(['/student-edit-view'])
+        break;
+      }
       default: {
         break;
       }
@@ -367,7 +372,7 @@ export class MainComponent {
         }
         this.show_edit_button = true;
         this.play_audio_button = false;
-        // this.show_functional_buttons = true
+        this.submit_button_flag = true;
         this.displayMessage('Successful API response.', 'SUCCESS')
       }
       else {
@@ -387,6 +392,9 @@ export class MainComponent {
         this.displayMessage('Feedback Captured', 'SUCCESS')
         this.like_button_flag = true
         this.dislike_button_flag = true
+        setTimeout(() => {
+          window.location.reload()
+        }, 5000);
       }
       else {
         this.displayMessage(requestedData?.message, 'ERROR')
@@ -437,27 +445,7 @@ export class MainComponent {
       this.get_audio_for_phonetics = this.phonetics_selection
       this.play_audio_button = true
       this.display_content_card_for_view_only = true;
-      // }
-      // else {
-      //   this.displayMessage('Could not process the request', 'ERROR')
-      //   this.ngxService.stop();
-      // }
     })
   }
-
-  // private getAudioFile = () => {
-  //   let reqObj = {
-  //     preferred_name: this.student_Name
-  //   }
-  //   this.ngxService.start();
-  //   this.httpClient.post('http://127.0.0.1:8081/getRecords/getaudio', reqObj).subscribe((data: any)=>data.Blob(),
-  //   const objectURL = URL.createObjectURL(blob);
-  //   audioPlayer.src = objectURL;
-
-  //   )
-
-
-
-  // }
 
 }
