@@ -57,6 +57,25 @@
         }
     }
 
+    .content-card {
+        padding: 0px 30px;
+        margin-left: 28%;
+        margin-top: 1%;
+
+        .example-card {
+            position: relative;
+            width: 55%;
+            box-shadow: 8px 8px #cac7ff;
+            padding: 8px 20px;
+            border-radius: 5px 15px;  
+
+        }
+     
+
+
+
+        }
+
     .content {
         .main-content {
             padding-top: 8%;
@@ -144,7 +163,7 @@
         display: contents;
     }
     
-    .delete-button {
+    .search-button {
         border: 0;
         border-radius: 60px;
         width: 1% !important;
@@ -154,7 +173,18 @@
         margin-left: 3.5%;
         margin-top: 1%;
     }
-    .delete-button:hover {
+    .search-button:hover {
         background: transparent !important;
     }
+}
+
+.delete-button {
+    border: 0;
+    border-radius: 14px !important;
+    width: 17% !important;
+    height: 35px !important;
+    background: #ff6347 !important;
+    cursor: pointer;
+    margin-left: 42%;
+    margin-top: 0.9%;
 }

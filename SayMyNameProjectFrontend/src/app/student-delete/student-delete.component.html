@@ -18,14 +18,31 @@
                         matTooltip="Enter your Student ID. It should be of 9 digits. ex. 500226573"
                         matTooltipPosition="below" [(ngModel)]="student_id">
                 </div>
-                <button mat-raised-button matTooltipPosition="above" matTooltip="Delete a record" 
-                class="delete-button" type="submit" (click)="handleUserAction('delete','')">
+                <button mat-raised-button matTooltipPosition="above" matTooltip="View a record" 
+                class="search-button" type="submit" (click)="handleUserAction('search','')">
                 <!-- <span>Delete</span> -->
-                <mat-icon style="font-size: 20px; padding-left: 8%;">delete</mat-icon>
+                <mat-icon style="font-size: 20px; padding-left: 8%;">search</mat-icon>
             </button>
             </div>
         </span>
-      
+        <ng-template [ngIf]="display_content_card === true">
+            <div class="content-card">
+                <mat-card class="example-card">
+                    <div style="margin-bottom: 1%; margin-top: 0.5%; text-align: center;">
+                        <p>Student ID: {{this.student_id}}</p>
+                        <p>Pronoun: {{this.pronoun}}</p>
+                        <p>First Name: {{this.firstName}}</p>
+                        <p>Last Name: {{this.lastName}}</p>
+                        <p>Preferred Name: {{this.preferredName}}</p>
+                        <p>Phonetics: {{this.phoneticSelection}}</p>
+                    </div>
+                    <button mat-raised-button matTooltipPosition="right" matTooltip="Delete record"
+                    class="delete-button" type="submit" (click)="handleUserAction('delete','')">
+                    <span><mat-icon class="decision-icon">delete</mat-icon></span>
+                </button>
+                </mat-card>
+            </div>
+        </ng-template>
     </div>
     <footer>
         <div class="footer-div">

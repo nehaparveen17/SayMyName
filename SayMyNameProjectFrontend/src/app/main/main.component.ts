@@ -9,6 +9,7 @@ import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogModuleComponent } from '../dialog-module/dialog-module.component';
 import { Router } from '@angular/router';
+import { MatRadioChange } from '@angular/material/radio';
 
 @Component({
   selector: 'app-main',
@@ -103,7 +104,7 @@ export class MainComponent {
   openDialog(): void {
     let dialogRef = this.dialog.open(DialogModuleComponent, {
       width: '30%',
-      data: { studentId: this.student_ID, preferredName: this.student_Name, Phonetics: this.final_phonetics }
+      data: { flag: "view-dialog", studentId: this.student_ID, preferredName: this.student_Name, Phonetics: this.final_phonetics }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -126,12 +127,6 @@ export class MainComponent {
 
 
   playAudio(): void {
-    // Ensure the studentName is provided
-    // if (!this.studentName) {
-    //   console.error('Student name is required.');
-    //   return;
-    // }
-
     // Append the student name to the API URL as a query parameter
     const apiUrl = `http://127.0.0.1:8081/getaudio?preferred_name=` + this.get_audio_for_phonetics;
 
@@ -148,7 +143,12 @@ export class MainComponent {
           audio.src = url;
 
           // Play the audio
-          audio.play();
+          this.ngxService.stop();
+          setTimeout(() => {
+            this.ngxService.stop()
+            audio.play();
+          }, 1000);
+         
         },
         error => {
           console.error('Error playing audio:', error);
@@ -156,6 +156,14 @@ export class MainComponent {
         }
       );
     // delete the above
+  }
+
+  public change = (event: MatRadioChange) => {
+    if(event?.value !== null || event?.value !== undefined || event?.value !== ''){
+      this.play_audio_button = true;
+        this.show_save_button = true
+        this.get_audio_for_phonetics = event?.value.toLowerCase();
+    }
   }
 
 
@@ -259,6 +267,7 @@ export class MainComponent {
         break;
       }
       case 'phoneticsChanged': {
+        console.log(event)
         this.edited_phonetics = event.value;
         // this.show_functional_buttons = true;
         this.play_audio_button = true;
@@ -428,8 +437,8 @@ export class MainComponent {
 
   private viewDetails = () => {
     this.ngxService.start();
-    this.httpClient.get('http://127.0.0.1:8081/getRecords/?studentID=' + parseInt(this.student_ID)).subscribe((data: any) => {
-      // if (data?.status === "success") {
+    this.httpClient.get('http://127.0.0.1:8081/getRecord/?studentID=' + parseInt(this.student_ID)).subscribe((data: any) => {
+     if(data?.status === "success"){
       this.listOfPronouns.forEach((ele: any) => {
         let pronoun = data?.results[0]?.pronoun
         if (ele?.viewValue === pronoun) {
@@ -441,10 +450,16 @@ export class MainComponent {
       this.student_Name = data?.results[0]?.preferred_name
       this.phonetics_selection = data?.results[0]?.phonetics_selection
       this.ngxService.stop();
-      this.displayMessage('Successfully retrieved details.', 'SUCCESS')
+      this.displayMessage("Sucessfully record fetched", 'SUCCESS')
       this.get_audio_for_phonetics = this.phonetics_selection
       this.play_audio_button = true
       this.display_content_card_for_view_only = true;
+     }
+     else {
+      this.ngxService.stop();
+      this.displayMessage(data?.message, 'ERROR')
+     }
+      
     })
   }
 
