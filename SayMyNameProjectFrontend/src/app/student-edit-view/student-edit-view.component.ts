@@ -1,0 +1,229 @@
+import { HttpClient } from '@angular/common/http';
+import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { ToastrService } from 'ngx-toastr';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
+
+@Component({
+  selector: 'app-student-edit-view',
+  templateUrl: './student-edit-view.component.html',
+  styleUrls: ['./student-edit-view.component.scss']
+})
+export class StudentEditViewComponent {
+
+  public student_id: string = "";
+  public firstName: string = "";
+  public lastName: string = "";
+  public preferredName: string = "";
+  public pronoun: string = "";
+  public phoneticSelection: string = "";
+  public display_content_card: boolean = false;
+  public view_first_name_flag: boolean = false;
+  public edited_first_name: any = undefined;
+  public view_last_name_flag: boolean = false;
+  public edited_last_name: any = undefined;
+  public view_preferred_name_flag: boolean = false;
+  public edited_preferred_name: any = undefined;
+  public view_phonetics_flag: boolean = false;
+  public edited_phonetics_name: any = undefined;
+  public view_pronoun_flag: boolean = false;
+  public edited_pronoun: any = undefined;
+  public update_button_flag: boolean = true;
+  public lastOfPronouns = [
+    { value: '01', viewValue: 'She / Her' },
+    { value: '02', viewValue: 'He / Him' },
+    { value: '03', viewValue: 'They / Them' },
+    { value: '04', viewValue: 'Prefer Not to Say' },
+  ];
+
+  constructor(
+    private toastr: ToastrService,
+    private httpClient: HttpClient,
+    private ngxService: NgxUiLoaderService,
+    public dialog: MatDialog,
+  ) { }
+
+  ngOnInit(): void {
+
+  }
+
+  handleUserAction = (type: string, event: any) => {
+    switch (type.toLowerCase()) {
+      case 'view': {
+        this.viewDetails()
+        break;
+      }
+      case 'edit_first_name': {
+        this.edited_first_name = this.firstName;
+        this.view_first_name_flag = true;
+        break;
+      }
+      case 'edit_last_name': {
+        this.edited_last_name = this.lastName;
+        this.view_last_name_flag = true;
+        break;
+      }
+      case 'edit_preferred_name': {
+        this.edited_preferred_name = this.preferredName;
+        this.view_preferred_name_flag = true;
+        break;
+      }
+      case 'edit_phonetics': {
+        this.edited_phonetics_name = this.phoneticSelection;
+        this.view_phonetics_flag = true;
+        break;
+      }
+      case 'edit_pronoun': {
+        this.edited_pronoun = this.phoneticSelection;
+        this.view_pronoun_flag = true;
+        break;
+      }
+      case 'update': {
+        let reqObj = {
+          "student_id": parseInt(this.student_id),
+          "first_name": this.edited_first_name || this.firstName,
+          "pronoun": this.edited_pronoun || this.pronoun,
+          "last_name": this.edited_last_name || this.lastName,
+          "preferred_name": this.edited_preferred_name || this.preferredName,
+          "course": "AIGS",
+          "intake": "Fall",
+          "year": 2023,
+          "phonetics_selection": this.edited_phonetics_name || this.phoneticSelection
+        }
+        console.log(reqObj)
+        this.updateDetails(reqObj);
+        break;
+      }
+    }
+  }
+
+  change(event: any) {
+    this.update_button_flag = false
+  }
+
+  sendTheNewFirstNameValue(event: any) {
+    let value: any
+    value = event?.target?.value;
+    let emp: any
+    if (value == '' || value == undefined || value == null) {
+      emp = this.firstName;
+      this.update_button_flag = true
+    }
+    else {
+      emp = value
+      this.update_button_flag = false
+    }
+
+  }
+
+  sendTheNewLastNameValue(event: any) {
+    let value: any
+    value = event?.target?.value;
+    let emp: any
+    if (value == '' || value == undefined || value == null) {
+      emp = this.lastName;
+      this.update_button_flag = true
+    }
+    else {
+      emp = value
+      this.update_button_flag = false
+    }
+  }
+
+  sendTheNewPreferredNameValue(event: any) {
+    let value: any
+    value = event?.target?.value;
+    let emp: any
+    if (value == '' || value == undefined || value == null) {
+      emp = this.preferredName;
+      this.update_button_flag = true
+    }
+    else {
+      emp = value
+      this.update_button_flag = false
+    }
+  }
+
+  sendTheNewPhoneticsNameValue(event: any) {
+    let value: any
+    value = event?.target?.value;
+    let emp: any
+    if (value == '' || value == undefined || value == null) {
+      emp = this.phoneticSelection;
+      this.update_button_flag = true
+    }
+    else {
+      emp = value
+      this.update_button_flag = false
+    }
+  }
+
+
+  private displayMessage = (message: string, state: string) => {
+    switch (state.toLowerCase()) {
+      case 'error':
+        this.toastr.error(message, state, {
+          closeButton: true,
+          progressBar: true
+        });
+        break;
+      case 'info':
+        this.toastr.info(message, state, {
+          closeButton: true,
+          progressBar: true
+        });
+        break;
+      case 'success':
+        this.toastr.success(message, state, {
+          closeButton: true,
+          progressBar: true
+        });
+        break;
+      default:
+        break;
+    }
+
+  }
+
+  private viewDetails = () => {
+    this.ngxService.start();
+    this.httpClient.get('http://127.0.0.1:8081/getRecord/?studentID=' + parseInt(this.student_id)).subscribe((data: any) => {
+      let requestedData: any = data
+      if (requestedData?.status === "success") {
+      this.firstName = data?.results[0]?.first_name;
+      this.lastName = data?.results[0]?.last_name;
+      this.preferredName = data?.results[0]?.preferred_name;
+      this.phoneticSelection = data?.results[0]?.phonetics_selection;
+      this.pronoun = data?.results[0]?.pronoun;
+      this.display_content_card = true;
+      this.ngxService.stop();
+      this.displayMessage('Successfully retrieved details.', 'SUCCESS')}
+      else {
+        this.displayMessage(requestedData?.message, 'ERROR')
+        this.ngxService.stop();
+      }
+    })
+  
+  }
+
+  private updateDetails = (reqObj: any) => {
+    this.ngxService.start();
+    this.httpClient.put("http://127.0.0.1:8081/update", reqObj).subscribe((data: any) => {
+      if (data?.status.toLowerCase() === "success") {
+        this.ngxService.stop();
+        this.displayMessage(data?.message, 'SUCCESS');
+        this.student_id = "";
+        this.display_content_card = false;
+        setTimeout(() => {
+          window.location.reload()
+        }, 4000);
+      }
+      else {
+        this.ngxService.stop();
+        this.displayMessage(data?.message, 'ERROR')
+      }
+
+    })
+  }
+
+}

@@ -30,19 +30,61 @@ The FastAPI application consists of the following components:
 
 5. **Utility Modules**: Additional utility modules such as `Split_word.py` and `different_languages.py` provide functionality for splitting words and handling different languages, respectively.
 
-## API Endpoints
+**Endpoints**
 
-The FastAPI application provides the following API endpoints:
+1. **Ping**
 
-1. **Create Student Record**: `POST /createpost` endpoint allows creating a new student record. It accepts a JSON payload containing details such as student name, course, and intake.
+   - **Method:** GET
+   - **Path:** /ping
+   - **Description:** Endpoint to check the connection to the backend.
 
-2. **Update Student Record**: `PUT /update` endpoint enables updating an existing student record. It accepts a JSON payload with updated student details.
+2. **Create Student Record**
 
-3. **Get Student Records**: `GET /getRecords/` endpoint retrieves student records based on various filters such as student ID, name, course, year, etc.
+   - **Method:** POST
+   - **Path:** /createpost
+   - **Description:** Endpoint to create a new student record in the database.
 
-4. **Submit User Feedback**: `POST /userfeedback` endpoint allows users to submit feedback. It accepts a JSON payload containing the student ID and feedback message.
+3. **Create Selection Record**
 
-5. **Manage Phonetic Selection**: The `selection` endpoint (`POST /selection`) manages phonetic selections. It updates existing selections or creates new ones based on user input.
+   - **Method:** POST
+   - **Path:** /selection
+   - **Description:** Endpoint to create a selection record for a student's phonetic preference.
+
+4. **Get Student Records**
+
+   - **Method:** GET
+   - **Path:** /getRecords/
+   - **Description:** Endpoint to retrieve student records based on various filters.
+
+5. **Update Student Record**
+
+   - **Method:** PUT
+   - **Path:** /update
+   - **Description:** Endpoint to update an existing student record.
+
+6. **Submit User Feedback**
+
+   - **Method:** POST
+   - **Path:** /userfeedback
+   - **Description:** Endpoint to submit user feedback.
+
+7. **Delete Student Record**
+
+   - **Method:** DELETE
+   - **Path:** /deleterecord
+   - **Description:** Endpoint to delete a student record from the database.
+
+8. **Get Phonetic Audio**
+
+   - **Method:** GET
+   - **Path:** /getaudiophonetics
+   - **Description:** Endpoint to retrieve audio files for phonetic names.
+
+9. **Get Audio**
+
+   - **Method:** GET
+   - **Path:** /getaudio
+   - **Description:** Endpoint to retrieve audio files for preferred names.
 
 ## Error Handling
 
@@ -60,10 +102,14 @@ In conclusion, this technical documentation provides an overview of a FastAPI ap
 ## Run the Project
 1. Download Docker desktop.
 2. Once installed, login to docker.
-3. in the command prompt run **docker-compose up --build** from the root of the project.
-4. to stop the container **docker-compose down**.
-5. to start the containers again **docker-compose up** if there are no changes to your program files. if you have changes then you have to run **docker-compose up --build**.
-6. If you having issues accessing the database from other GUI's it is possible you have already an instance of postrges in your machine and it's not letting you access it.
+3. git clone https://github.com/VijayBonthu/final_project.git
+4. Navigated to the path where it is cloned in command Prompt.
+5. in the command prompt run **docker-compose up --build** from the root of the project.
+6. The above command should download all the required dependencies and start frontend, backend and postgres DB.
+7. If you have installed postgres before it might cause an issue with the ports, if you are facing issue with failed postgres server issue follow **step 10** to fix it. Once the below steps are done run **docker-compose up --build**
+8. to stop the container **docker-compose down**.
+9. to start the containers again **docker-compose up** if there are no changes to your program files. if you have changes then you have to run **docker-compose up --build**.
+10. If you having issues accessing the database from other GUI's it is possible you have already an instance of postrges in your machine and it's not letting you access it.
       Press **Win + R** to open the Run dialog.
       Type **services.msc** and press Enter. This will open the Services window.
       Scroll down to find the PostgreSQL service. It may be named something like **"postgresql-x64-<version>"**.
