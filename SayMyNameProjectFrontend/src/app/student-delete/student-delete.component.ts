@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { DialogModuleComponent } from '../dialog-module/dialog-module.component';
 
 @Component({
   selector: 'app-student-delete',
@@ -13,6 +14,12 @@ import { NgxUiLoaderService } from 'ngx-ui-loader';
 export class StudentDeleteComponent {
 
   public student_id: string = "";
+  public firstName: string = "";
+  public lastName: string = "";
+  public preferredName: string = "";
+  public pronoun: string = "";
+  public phoneticSelection: string = "";
+  public display_content_card: boolean = false;
 
   constructor(
     private toastr: ToastrService,
@@ -28,13 +35,51 @@ export class StudentDeleteComponent {
   handleUserAction = (type: string, event: any) => {
 switch (type.toLowerCase()) {
   case 'delete':{
-    let reqObj = {
-      student_id: parseInt(this.student_id)
+  this.openDialog()
+    break;
+  }
+  case 'search':{
+    if (this.student_id?.length == 9 ) {
+      if (/^\d+$/.test(this.student_id)) {
+        this.viewDetails()
+      }
+      else {
+        this.displayMessage('Student ID should be in number only', 'ERROR')
+        this.student_id = "";
+      }
     }
-    this.deleteRecord(reqObj)
+    else {
+      this.displayMessage('Student ID should be of 9 digits', 'ERROR')
+      this.student_id = "";
+    }
+   
+    break;
   }
 }
   }
+
+  private viewDetails = () => {
+    this.ngxService.start();
+    this.httpClient.get('http://127.0.0.1:8081/getRecord/?studentID=' + parseInt(this.student_id)).subscribe((data: any) => {
+      if (data?.status === "success"){
+        this.firstName = data?.results[0]?.first_name;
+        this.lastName = data?.results[0]?.last_name;
+        this.preferredName = data?.results[0]?.preferred_name;
+        this.phoneticSelection = data?.results[0]?.phonetics_selection;
+        this.pronoun = data?.results[0]?.pronoun;
+        this.display_content_card = true;
+        this.ngxService.stop();
+        this.displayMessage(data?.message, 'SUCCESS')
+      }
+      else {
+        this.ngxService.stop();
+        this.displayMessage(data?.message, 'ERROR')
+        this.student_id = ""
+      }
+    
+    })
+  }
+
 
   private deleteRecord = (reqObj: any) => {
     this.ngxService.start();
@@ -42,10 +87,12 @@ switch (type.toLowerCase()) {
       let requestedData: any = data
       if (requestedData?.status === "success") {
         this.ngxService.stop();
-        this.displayMessage(requestedData?.message, 'SUCCESS')
+        this.displayMessage("Record successfully deleted", 'SUCCESS')
+        this.student_id = "";
         setTimeout(() => {
           window.location.reload()
         }, 4000);
+        this.display_content_card = false;
       }
       else {
         this.displayMessage(requestedData?.message, 'ERROR')
@@ -60,7 +107,7 @@ switch (type.toLowerCase()) {
         this.toastr.error(message, state, {
           closeButton: true,
           progressBar: true
-        });
+                  });
         break;
       case 'info':
         this.toastr.info(message, state, {
@@ -78,6 +125,23 @@ switch (type.toLowerCase()) {
         break;
     }
 
+  }
+
+  openDialog(): void {
+    let dialogRef = this.dialog.open(DialogModuleComponent, {
+      width: '30%',
+      data: { flag: "delete-dialog"}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+     if(result === 'Yes'){
+      let reqObj = {
+        student_id: parseInt(this.student_id)
+      } 
+      this.deleteRecord(reqObj)
+     } 
+    
+    });
   }
 
 
