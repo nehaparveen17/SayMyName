@@ -1,0 +1,25 @@
+<ng-template [ngIf]="data?.flag === 'view-dialog'">
+  <h2 mat-dialog-title style="background-color: #cac7ff; font-size: 17px;">Confirmation Details</h2> 
+<div mat-dialog-content> 
+  <p>Student ID: {{data?.studentId}}</p>
+  <p>Preferred Name: {{data?.preferredName}}</p> 
+  <p>Phonetics: {{data?.Phonetics}}</p>
+</div> 
+<div mat-dialog-actions> 
+  <button mat-button [mat-dialog-close]=""
+             cdkFocusInitial style="margin-left: 78%;">Ok</button> 
+</div>
+</ng-template>
+
+<ng-template [ngIf]="data?.flag === 'delete-dialog'">
+  <h2 mat-dialog-title style="background-color: #cac7ff; font-size: 17px;">Delete Record</h2> 
+<div mat-dialog-content> 
+  <p>Are you sure you want to delete ?</p>
+</div> 
+<div mat-dialog-actions> 
+  <button mat-button [mat-dialog-close]="'Yes'"  
+             cdkFocusInitial style="margin-left: 60%;">Delete</button> 
+             <button mat-button [mat-dialog-close]="'No'"  
+             cdkFocusInitial>Back</button> 
+</div>
+</ng-template>

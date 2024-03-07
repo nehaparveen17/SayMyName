@@ -1,0 +1,305 @@
+{
+	"info": {
+		"_postman_id": "844e18c1-3577-488f-865f-dbf2da86a7ef",
+		"name": "Say_my_name_backend",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30177779"
+	},
+	"item": [
+		{
+			"name": "Admin view pagination filters",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"text\": \"vijay\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8081/getRecords?offset=0&limit=10&studentID=&firstname=n&lastname&preferred_name&year=&course&intake",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8081",
+					"path": [
+						"getRecords"
+					],
+					"query": [
+						{
+							"key": "offset",
+							"value": "0"
+						},
+						{
+							"key": "limit",
+							"value": "10"
+						},
+						{
+							"key": "studentID",
+							"value": ""
+						},
+						{
+							"key": "firstname",
+							"value": "n"
+						},
+						{
+							"key": "lastname",
+							"value": null
+						},
+						{
+							"key": "preferred_name",
+							"value": null
+						},
+						{
+							"key": "year",
+							"value": ""
+						},
+						{
+							"key": "course",
+							"value": null
+						},
+						{
+							"key": "intake",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create student record",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"first_name\": \"haNzo\",\r\n    \"last_name\":\"mrs\",\r\n    \"student_id\" : 92900217,\r\n    \"pronoun\": \"He/HIm\",\r\n    \"preferred_name\": \"Hanzo\",\r\n    \"year\": 2024,\r\n    \"intake\":\"January\",\r\n    \"course\":\"Ftech\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8081/createpost",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8081",
+					"path": [
+						"createpost"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create and update votes and phonetics table",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"student_id\": 92900214,\r\n    \"name\": [\"hanzo\"],\r\n    \"phonetics_selection\":[\"han-zo\"],\r\n    \"show\":\"True\",\r\n    \"data_in_votes_table\": false,\r\n    \"audio_selection\": \"\\\\xfff344c40012008c58015ad0003dd684b21a9aa7b789e17a604e1ccd07bb01be202024650516b11515c4025ff53632490e3bd128e661e1d0a4719501079b59674e99cb6e6e0c1694d0bd39b3ce1a7048e36520e746ff300080c601e32f084e8bfff344c40b12291e54019c5000c3ff5090304c1cf716877fb8eef82416927c6a22c9c05c0f8d3d49de0b85475bfbd89c786919ffd1bb29ea467f9cd6f4fff38efffa5071266ffffe9d2c4a70d9d0580e96a6ca6e99ac200d018d070c06a73c50fff344c4151761326801dc6000d8c140164ee0ab01303ef4d3c291b313d7595b17e77866ed28602c8f65e5b3358b32a05075c6f4edacebaf7184e4b49945edd2089f58fe0e601cca4bb179c7bbeb2f47ffb7fffff17a557943c6300631dd00cbfff344c40a14e12e7800e6127000c4c76d42aad3261f4c1e0861ae90eaa009da678589dbc71a45ef6ff2a597eb59485a824156feca75f454248675a3f1647ed3711b7b26903112158502425151800b9dfffffffffffeaa96559e84986a084283fff344c4091341ae9c00da509410840c8b988c01a6160387188585d66e16600018fe0dec26718fd25a1fdfdfe989b160982b06e78c0e0c4a1a9de845fbcbf0b369ba55c3dfcfffff3ffc26e58b878b9fe9caf6a3e20ed39ec2fa6921af1e03a9fff344c40f14b94ea800cad895acb6ba961b53c46056eaec132bc3f0f8ce1339ed208e7a84f3ecb54192a3e8178e8bff8ace53acdede6ad39d302c722d3811cfff28f97c9dd73f6a36a6a18e99ffe4512bb3ff91013264fb7c1940a511661039fff344c40f154142ac00d35e7074e004c49b39907612be9103383d881e5b698fe564fe0b2a32994e94871e6b8d39e70f9dc4f9b5b5ebe0e3e2cfde44ce988e9504d41d7a8f54d48b1c1e42ba8fbd1fffffffe8b5fbc8aa6c0469f8c97e83249dfff344c40d13814aa400d35094004c932962c105e9ac3181ddd6384ddaa3a60d3124569e48928d3e6c403c403600108e9575752bcfed75f2beb8aa2652fff582a6c93bf73ff6ffffe418d2e4a2eba99fdf2e6a74c265d2d100c30b15dd9fa5c7fff344c412155b06ac00c08ab96650164ebaab36a6ff861d2b56a53ffff6c8ffffffbddbd16dd2fa2d19a4abe4b5d1a7429ea792ed38bbb1ea6228f0e2b87c60a505119dd44dc408394c0e041a2fb072ea168e8615aab53ffb6f7ffff990fffffff344c40f161b1eac001090bdfffd817fcfcfffff3ffdff6d3f751d55ef1fd7fccd4da5bd45dda5435bc9d343cdc62c58d2a20403c541b0b8403c380f893cd162c392c3c83090824381a2524431a78c0c80b8b07062b5bffffffffffffffffffff344c409110322b000084ebcfd7fffffdfd7f644ee8bf5cdfa665eb755ab1ae8ccc632d0ba15562cc48f1e1d285ca0dc46409ca8dc58250e8c100104c58141309c0714120564cc03fffffffffff27fffffffffffffffd6f6a7dfbedf5d5d0efff344c418110b22b000084ebc5445b9e6eda2a9c5898e0d1078a14cbc80d1cd1f43478d30706a34159307a688e2d263607a0304407c0e46c6aabfffffeefffffe8bffbffdf26fffffffb37e9a55fba5158e7543faeb59b555b0fab22a9c4870fff344c426124326ac00084ebc7489638e223ea848684c6a5088d9c131f0b131d20697140883a2e2c486078170096926bfffffffffffd7ffffffffffffff7a6dffba5b776456336a5aacab420aa86941e20731a62a29a8a70f971e130c0a9c78fff344c430117b22b000084ebcf3506e70f86c261a38d05e171484002088f08a0fc6ef03ffaffffffffccb732fffffffffffffa7ffdff6bd736fa19311e87b1c79ea40a964b34d24c7c5e2c386c710128491e1d1c1703e34d38b88c2303e0765fff344c43d122b22b400084ebcc6c3c1e12892241c151d38bad2500900a82c1605c1083f3be7fffffff260edefff9f7fffff4a76b7ffedecffdd2acee41a566feaecac64aa8b4a5112a2b39548f948541511318c613160b1551570140a240db5fff344c447117b1ab400504abd96e69c23cc36b7129788c215fc1d981b525a833ee6a67b7557e7fd885b53fec490d846c25838b70094d10850941081c3197fad7868efffd62e58f7fd542bfd81a5a1b5ba8e999118f37149537070cf06aa51e1fff344c454106132a400cac670291fc6f46f6f42fa1ffbebe1c4a3a4986e0264c386e8510966d6688068b9ba9469ff0ce3e2bfe7ebd387277ffd819afffffff122d6f555f6305083814b61aca68dead87ed63612fd46f06defe8fe8fe77d64dafff344c4651169b2a800c89694d15138374ba695a41c0859c438f04d05a44bbf3866f54c99f5a26fd64a1d9b546f8936e779d2aefff9affd55b5ce5b810c6ce87855a7d23fc0018382365ef6b6300436b1a5f0ef9fd0a6f437fafe6cebbf2b1dfff344c4721299baa400d09a945706e0962e1d6769a503a4d504c6f2502099bd03469eb8ed477ddb1dd746c9264c9605f5115b03bffffffdc6d5a5e6aba9d1902aa5c2bb7f8a804661646783af177a26159147140000b8eafc6e25916a9e73f4fff344c47a14d1aaa000d956947f3333397acedced85d9af96c7d392e8963f81806b574ec9c0d56ade56849fbf73d99dceffbe76eccac4e0211eb63fa834cffffffee729c585158131ad00b7c6e218ba92895d171cee5142051cf933ee17a763fff344c47917d1a69c00d9d89483f84d992a8c52acbe38cb89d0411d0416da1ccee6f4d1ba7eb6c5da4676561c521147c060680b209b130be82a488f1ca12e6367b6936d9bf5661da3a754e8ae41d7ddd048f767ff423ffc61362581ec52c346fff344c46c19b1b29800db5894201067282504a540675a51ff3cc866baa5291d3622c1051613d299592e4e1f5a05c5ea30f5abeccccfdbe757c4cc2bd2f3686398e4949a660404b1d4be861da11f54c1db6fc760d09c2a250c08540b070e7f9bfff344c4581849629400d4589446fddffcdfff5dc1b4aa6bbc9b5801c665dd2bbc080a3c14205033fb4f1112229ea7f8038023395180f1b7bbc618b4d499c62f3ebdef6fe9adefaffce7094d76dcaa88132cd101000e0c9389c1b120f28a8b8afff344c44917d1a69400dbd29476497cfddbb3dcdbf51ee8a353b9bfffffffffc93146aa9aca6d448c0ad6296a2823983c5948c6c420c20940d64801c928b901d8bc7672a4dcf1ad3192e86362fffbaffff7757959b1510175a9513c04e0a260fff344c43c1301569c00d2d2955896612152bb19bb475547a8f2e1d396d6a65a581c342e2022146a0aab13c817065a873b13e1e89d24b195475e81de533cd631d34c6c5ff7ffffffc2bf7ab2408d82234018bb0a164f88a44caa18b5628958e3fff344c44311914e9c00d2d295bf4ef96a894457d19e5802bcd350166bcea0319008991ce8e2d97122928ef1e96e56e1b8bcee7ab37bedd9ef0805a09989b98ec61a5c7676cd68392471c924973a8956ce49a448a3438f6be90282a869b61fd3fff344c44f12c1368c00d60c706754893ea0545391285fe8f263a701c0858d50116e11c7db4b2abd7a7cbfbf60617b98486aa171fdc5885091b5e6a459b4b668eb2986a6dc1e5079a03048eff5389551e88ab61c420a8c3b660cae519eaf4441fff344c4571168fa8000dbd27086c07e34128a00f05f3d5d95b13450c5acafb7df62e9f7b85c49bc467ae679b8206676cec1d594ca8a12b5948afc65f11499fc402d4a451985fc0f564cf919853b04412ee02951aa86a85cb108af5d28c71e2efff344c46411a91e7c00dbd2704f353f97974f23b154d2284c3b92bb2d3d4a739d50aac55666318e88730b42296fffea2a4628004f310079db260902abe317941d00606170b33f2268726400ece980c6908f3499b4d96b34212ef4aed56376cffff344c47010716a7800db0a9575d9ddbe0f565590c74088a97626c61f6fffe8302cc44c3aaaa05be30206d72a563ce61828818d09a3b8809c98b1de87d9540ca9c0fbe5ad272ba82ee6a04d196364666cc5e490c655353a8e70ef18c6122965fff344c48111a16e7000db0a946148cae4fffe5b8c0f3ccffec5d530a211117b9c39c9d69b42c8c2002fe60a60c24d375cee6102e1965f25a5b656961e2a10236664416271857b616a2176e91c8a8ec5090185985da6d94d7a7fff1530d63f47fff344c48d11c96a6800da4494e92e082702e33c5c5100af17d52e5dac1a4b7057500bf24a34008e06a6850d49692c4c7432709baa87484c911a4c52a0692268b2a3cc8e5b06397cce5cd37fd2b4305074f7f22a02c473d6b535f2c563731414fff344c49811816e6000d24a94554942931aac0246ec63e8a35d554982ad8c29b56635c289d82afb3366c19e1a0d07171148add59d53fa3fd93bd41a238183a55d5b8b3fcef8864656154260a51fe2107b9964f0f7499f995db74b11f2b432b0fff344c4a511596a3800c244948ca0a01722821128bb0c13e8a046b5a2326e461e994389ec9d37b0f6a2b217a91dcba5e1aa4f18c3e28b28f217b34ef444e12456d9f713431681ed9bfb3d4d4fee5b63d237e23bec17485e3d21aed3659d2d71fff344c4b211f129e80060c670b35bb9b253fdd87d8d94958cf597059861edf3ee524452516241f502a5006c7e62ec064bc04b051a28280c026006092e48c12b256470f4261243024743a25110980a020a848341d2553fdac2a4143c24f3ce2cfff344c4bd211b05e4007a4cb98ffa878c1e332a59bfeb2dc892220b0c8809c743429110c8c8c11921f251510961406209a091138d34a2e03c6b161616150c808242e230c82c2c2a2332efd005151416340c8a8b1235ff1617619182c2ac33fffff344c48b11787de800618c48f58a8b4d554c414d45332e3130305555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555554c414d45332efff344c49812487d24004a4c4831303055555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555554c414d45332efff344c4a1000003480000000031303055555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555554c414d45332efff344c4ac000003480000000031303055555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555554c414d45332efff344c4ac00000348000000003130305555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555fff344c4ac00000348000000005555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555fff344c4ac00000348000000005555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8081/selection",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8081",
+					"path": [
+						"selection"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "userfeedback",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"student_id\":92900217,\r\n    \"userfeedback\":\"yes\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8081/userfeedback",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8081",
+					"path": [
+						"userfeedback"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update a record",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"student_id\": 92900218,\r\n    \"first_name\": \"vijay\",\r\n    \"last_name\": \"Bonthu\",\r\n    \"pronoun\": \"He/Him\",\r\n    \"preferred_name\":\"vijay\",\r\n    \"course\": \"AIGS\",\r\n    \"intake\": \"Fall\",\r\n    \"year\":2023,\r\n    \"phonetics_selection\":\"han-zo\"\r\n}\r\n\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8081/update",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8081",
+					"path": [
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Deleting a record",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"student_id\": 92900217\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8081/deleterecord",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8081",
+					"path": [
+						"deleterecord"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get audio of preferred name",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"preferred_name\":\"gujarat\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8081/getaudio",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8081",
+					"path": [
+						"getaudio"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get audio phonetics",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"phonetics_name\":\"goo-jah-RAHT\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8081/getaudiophonetics",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8081",
+					"path": [
+						"getaudiophonetics"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
