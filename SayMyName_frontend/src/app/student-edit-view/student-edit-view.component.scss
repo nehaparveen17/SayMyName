@@ -1,0 +1,223 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:300,400500.600,700,800,900&display=swap');
+
+.conatiner {
+    .header {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        // padding: 28px 100px;
+        padding-top: 28px;
+        padding-bottom: 10px;
+        padding-right: 100px;
+        padding-left: 100px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .title {
+            color: #fff;
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .main {
+            text-transform: uppercase;
+            background-image: linear-gradient(-225deg,
+                    #231557 0%,
+                    #44107a 29%,
+                    #ff1361 67%,
+                    #fff800 100%);
+            background-size: auto auto;
+            background-clip: border-box;
+            background-size: 200% auto;
+            color: #fff;
+            background-clip: text;
+            // text-fill-color: transparent;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: textclip 3s linear infinite;
+            display: inline-block;
+            font-size: 25px;
+
+        }
+
+        @keyframes textclip {
+            to {
+                background-position: 200% center;
+            }
+        }
+
+        .logo {
+            height: 30px;
+            width: 30px;
+        }
+    }
+
+    .content {
+        .main-content {
+            padding-top: 8%;
+            padding-left: 12%;
+            font-size: 41px;
+            color: #fff;
+            font-weight: 300;
+            letter-spacing: 3px;
+            text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+
+            .content-text-1 {
+                padding-bottom: 27px;
+            }
+
+            .content-text-2 {
+                padding-left: 29%;
+                font-size: 24px;
+                padding-bottom: 10px;
+            }
+        }
+
+        .content-card {
+            //----for demo
+            //padding: 45px 30px;
+            //----future implementation
+            padding: 0px 30px;
+            margin-left: 28%;
+            margin-top: 1%;
+
+            .example-card {
+                position: relative;
+                width: 55%;
+                box-shadow: 8px 8px #cac7ff;
+                padding: 8px 20px;
+                border-radius: 5px 15px;  
+
+                .edit-button {
+                    background: none;
+                    padding-left: 5%;
+                    vertical-align: middle;
+                    border: none;
+                    padding: none;
+                    color: grey;
+                    position: absolute;
+                    left: 43%;
+                }
+                .edit-button:hover {
+                 cursor: pointer;
+                 color: black;
+                }
+            }
+         
+
+
+
+            }
+
+
+        
+
+    }
+    .search-bar-student-id input {
+        background: transparent;
+        flex: 1;
+        border: 0;
+        outline: none;
+        padding: 11px 20px;
+        font-size: 17px;
+        color: #cac7ff;
+        width: 1%;
+
+    }
+
+    .search-bar-student-name input {
+        background: transparent;
+        flex: 1;
+        border: 0;
+        outline: none;
+        padding: 11px 5px;
+        font-size: 17px;
+        color: #cac7ff;
+        width: 2%;
+        text-overflow: ellipsis;
+    }
+
+   
+    ::placeholder {
+        color: #cac7ff;
+    }
+
+    .search-conatiner {
+        padding-top: 0.2% !important;
+        padding-left: 40% !important; // for 3 input
+        display: flex;
+    }
+
+    .footer-div {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background: transparent;
+
+        .footer-content {
+            font-size: 12px;
+            color: #09113f;
+            //color: #acacac;
+            margin-left: 28%;
+            letter-spacing: 0.5px;
+        }
+    }
+
+
+    .conditional-button-class-1 {
+        margin-left: 35%;
+        display: flex;
+    }
+
+    .conditional-button-class-2 {
+        display: contents;
+    }
+
+    .view-button {
+        border: 0;
+        border-radius: 60px;
+        width: 1% !important;
+        height: 44px;
+        background: #cac7ff;
+        cursor: pointer;
+        margin-left: 3.5%;
+        margin-top: 1%;
+    }
+    .view-button:hover {
+        background: transparent !important;
+    }
+
+    .example-full-width {
+        width: 50%;
+        margin-left: 3%;
+        height: 53px;
+    }
+    
+}
+
+::ng-deep .example-full-width.mdc-text-field--no-label:not(.mdc-text-field--outlined):not(.mdc-text-field--textarea) .mat-mdc-form-field-infix {
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+::ng-deep .example-full-width .mdc-text-field--no-label:not(.mdc-text-field--outlined):not(.mdc-text-field--textarea) .mat-mdc-form-field-infix {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+.update-button {
+    border: 0;
+    border-radius: 14px !important;
+    width: 17% !important;
+    height: 35px !important;
+    background: #4caf50 !important;
+    cursor: pointer;
+    margin-left: 42%;
+    margin-top: 0.9%;
+}

@@ -1,4 +1,4 @@
 venv
 backend/__pycache__
-SayMyName_frontend/SYM/SayMyNameProjectFrontend/.angular/cache
-SayMyName_frontend/SYM/SayMyNameProjectFrontend/node_modules
+SayMyName_frontend/.angular/cache
+SayMyName_frontend/node_modules

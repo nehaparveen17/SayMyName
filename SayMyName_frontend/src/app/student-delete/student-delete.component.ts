@@ -137,9 +137,9 @@ switch (type.toLowerCase()) {
      if(result === 'Yes'){
       let reqObj = {
         student_id: parseInt(this.student_id)
-      }
+      } 
       this.deleteRecord(reqObj)
-     }
+     } 
     
     });
   }
