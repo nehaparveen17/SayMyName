@@ -107,7 +107,7 @@ switch (type.toLowerCase()) {
         this.toastr.error(message, state, {
           closeButton: true,
           progressBar: true
-                  });
+        });
         break;
       case 'info':
         this.toastr.info(message, state, {
