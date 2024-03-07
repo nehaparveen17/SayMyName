@@ -215,7 +215,6 @@ async def selection(details:p_model_type.Selection, db: Session= Depends(get_db)
 async def get_students(studentID: str = None, db: Session= Depends(get_db)):
 
 
-
 #calling DB to get details
     query =(
     db.query(models.Student_data.student_id, 
@@ -233,9 +232,11 @@ async def get_students(studentID: str = None, db: Session= Depends(get_db)):
                  models.Student_data.student_id == models.Namepronounciation.student_id
                  )
             )
+ 
 
     if studentID:
         results = query.filter(models.Student_data.student_id == studentID).all()
+
 
         if not results:
             return {
@@ -258,6 +259,7 @@ async def get_students(studentID: str = None, db: Session= Depends(get_db)):
                             "show":show
                             }
                 final_response.append(response_data)
+
 
             return {"status": "success",
                 "results": final_response}
