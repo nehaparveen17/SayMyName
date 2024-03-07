@@ -1,11 +1,5 @@
 venv
-<<<<<<< HEAD
-backend/__pycache__
-SayMyName_frontend/.angular/cache
-SayMyName_frontend/node_modules
-=======
 SayMyNameProjectFrontend/node_modules
 SayMyNameProjectFrontend/.angular
 backend/__pycache__
 .env
->>>>>>> bfffcc8188baa7e98df7784c1f4b2bbeb9f92d59
