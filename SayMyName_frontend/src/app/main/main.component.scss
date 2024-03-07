@@ -1,0 +1,486 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:300,400500.600,700,800,900&display=swap');
+
+.conatiner {
+    .header {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        // padding: 28px 100px;
+        padding-top: 28px;
+        padding-bottom: 10px;
+        padding-right: 100px;
+        padding-left: 100px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .title {
+            color: #fff;
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .main {
+            text-transform: uppercase;
+            background-image: linear-gradient(-225deg,
+                    #231557 0%,
+                    #44107a 29%,
+                    #ff1361 67%,
+                    #fff800 100%);
+            background-size: auto auto;
+            background-clip: border-box;
+            background-size: 200% auto;
+            color: #fff;
+            background-clip: text;
+            // text-fill-color: transparent;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: textclip 3s linear infinite;
+            display: inline-block;
+            font-size: 25px;
+
+        }
+
+        @keyframes textclip {
+            to {
+                background-position: 200% center;
+            }
+        }
+
+        .logo {
+            height: 30px;
+            width: 30px;
+        }
+    }
+
+    .content {
+        .main-content {
+            padding-top: 8%;
+            padding-left: 12%;
+            font-size: 41px;
+            color: #fff;
+            font-weight: 300;
+            letter-spacing: 3px;
+            text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+
+            .content-text-1 {
+                padding-bottom: 27px;
+            }
+
+            .content-text-2 {
+                padding-left: 29%;
+                font-size: 24px;
+                padding-bottom: 10px;
+            }
+        }
+
+        .content-card {
+            //----for demo
+            //padding: 45px 30px;
+            //----future implementation
+            padding: 0px 30px;
+            margin-left: 28%;
+
+            .example-card {
+                position: relative;
+                width: 55%;
+                box-shadow: 8px 8px #cac7ff;
+                padding: 8px 20px;
+                border-radius: 5px 15px;
+
+                .condition {
+                    text-align: center;
+
+                    .text {
+                        margin-top: 3%;
+                    }
+                }
+
+
+
+                .decision-button {
+                    border: none;
+                    color: white;
+                    padding: 2px 10px;
+                    text-align: center;
+                    text-decoration: none;
+                    display: inline-block;
+                    margin: 11px 4px;
+                    cursor: pointer;
+                    border-radius: 20px;
+
+                    .decision-icon {
+                        padding-top: 0px !important;
+                        font-size: 19px;
+                        margin-left: 12%;
+                    }
+
+                    ::ng-deep .decision-icon.mat-mdc-unelevated-button>.mat-icon,
+                    .mat-mdc-raised-button>.mat-icon,
+                    .mat-mdc-outlined-button>.mat-icon {
+                        margin-left: 0;
+                        // margin-right: 8px;
+                        display: inline-block;
+                        position: relative;
+                        vertical-align: top;
+                        font-size: 1.125rem;
+                        height: 0rem;
+                        width: 0rem;
+                        // margin-left: -4px;
+                        /* margin-right: 8px; */
+                    }
+                }
+
+
+
+
+
+                .correct {
+                    background-color: #4CAF50;
+                }
+
+                .correct:hover {
+                    box-shadow: 3px 3px #dddde8;
+                }
+
+                .wrong {
+                    background-color: #ff6347;
+                }
+
+                .wrong:hover {
+                    box-shadow: 3px 3px #dddde8;
+                }
+
+                .volume-icon {
+                    margin-top: 3px;
+                    font-size: 28px;
+                    color: #808080;
+                }
+
+                .volume-icon:hover {
+                    color: black;
+                    cursor: pointer;
+                }
+
+                .info-text {
+                    font-size: 11px;
+                    color: #808080;
+                    vertical-align: super;
+                    margin-left: 8px;
+                }
+
+                .timer {
+                    margin-left: 15px;
+                    vertical-align: super;
+                }
+
+                .stop-recording {
+                    border: none;
+                    color: white;
+                    padding: 2px 20px;
+                    text-align: center;
+                    text-decoration: none;
+                    display: inline-block;
+                    margin: 11px 4px;
+                    cursor: pointer;
+                    border-radius: 20px;
+                    background-color: #ff6347;
+                }
+
+                .stop-recording-text {
+                    vertical-align: super;
+                    margin-left: 3px;
+                }
+
+                .re-record {
+                    border: none;
+                    color: white;
+                    padding: 2px 36.5px;
+                    text-align: center;
+                    text-decoration: none;
+                    display: inline-block;
+                    margin: 11px 4px;
+                    cursor: pointer;
+                    border-radius: 20px;
+                    background-color: #ff6347;
+                }
+
+                .rerecord-diabled {
+                    background-color: #d3d3d3;
+                }
+
+                .rerecord-enabled {
+                    background-color: #fccb06 !important;
+                }
+
+                .rerecord-enabled:hover {
+                    box-shadow: 3px 3px #dddde8;
+                }
+
+                .stop-recording:hover {
+                    box-shadow: 3px 3px #dddde8;
+                }
+
+                .stop-icon {
+                    padding-top: 3px;
+                }
+
+                .rerecord-icon {
+                    padding-top: 3px;
+                }
+
+            }
+
+
+        }
+    }
+
+    .search-bar-student-id input {
+        background: transparent;
+        flex: 1;
+        border: 0;
+        outline: none;
+        padding: 11px 20px;
+        font-size: 17px;
+        color: #cac7ff;
+        width: 1%;
+
+    }
+
+    .example-form {
+        min-width: 150px;
+        max-width: 500px;
+        width: 100%;
+    }
+
+    .example-full-width {
+        width: 76%;
+        margin-left: 3%;
+        height: 67px;
+    }
+
+    .edit-button {
+        border: 0;
+        border-radius: 14px !important;
+        width: 17% !important;
+        height: 35px !important;
+        background: #ffbf00;
+        cursor: pointer;
+        margin-left: 2%;
+        margin-top: 1%;
+    }
+
+    .save-button {
+        border: 0;
+        border-radius: 14px !important;
+        width: 17% !important;
+        height: 35px !important;
+        background: #4caf50;
+        cursor: pointer;
+        margin-left: 2%;
+        margin-top: 1%;
+    }
+
+    .edit-phonetics {
+        width: 25%;
+        max-width: 700px;
+        background: rgba(255, 255, 255, 0.2);
+        display: flex;
+        align-items: center;
+        border-radius: 60px !important;
+        padding: 0px 20px;
+        backdrop-filter: blur(4px) saturate(180%);
+        height: 57px;
+    }
+
+    .edit-phonetics input {
+        // background: transparent;
+        flex: 1;
+        border: 0;
+        outline: none;
+        padding: 11px 20px;
+        font-size: 20px;
+        color: #a4a2b9;
+        background-color: #b6b3ed;
+    }
+
+    .search-bar-student-name input {
+        background: transparent;
+        flex: 1;
+        border: 0;
+        outline: none;
+        padding: 11px 5px;
+        font-size: 17px;
+        color: #cac7ff;
+        width: 2%;
+        text-overflow: ellipsis;
+    }
+
+    // .search-bar-firstName input {
+    //     background: transparent;
+    //     flex: 1;
+    //     border: 0;
+    //     outline: none;
+    //     padding: 11px 20px;
+    //     font-size: 17px;
+    //     color: #cac7ff;
+    //     width: 2%;
+    //     text-overflow: ellipsis;
+    //     margin-left: 1% !important;
+    // }
+
+    // .search-bar-lastName input {
+    //     background: transparent;
+    //     flex: 1;
+    //     border: 0;
+    //     outline: none;
+    //     padding: 11px 20px;
+    //     font-size: 17px;
+    //     color: #cac7ff;
+    //     width: 2%;
+    //     text-overflow: ellipsis;
+    //     margin-left: 1% !important;
+    // }
+
+    .pronoun-dropdown {
+        margin-left: 1.5%;
+        margin-right: 1.5%;
+        width: 14%;
+    }
+
+    ::ng-deep .pronoun-dropdown.mat-mdc-form-field-type-mat-select:not(.mat-form-field-disabled) .mat-mdc-text-field-wrapper {
+        border-radius: 60px;
+        padding: 0px 20px;
+        // background: #cac7ff;
+        backdrop-filter: blur(4px) saturate(180%);
+        background: #cac7ff;
+        outline: none;
+        // backdrop-filter: blur(4px) saturate(180%);
+
+    }
+    ::ng-deep .intake-dropdown.mat-mdc-form-field-type-mat-select:not(.mat-form-field-disabled) .mat-mdc-text-field-wrapper {
+        border-radius: 60px;
+        padding: 0px 20px;
+        // background: #cac7ff;
+        backdrop-filter: blur(4px) saturate(180%);
+        background: #cac7ff;
+        outline: none;
+    }
+
+    ::placeholder {
+        color: #cac7ff;
+    }
+
+    // .search-bar button mat-icon {
+    //     width: 25px;
+    //     padding-top: 3px;
+    // }
+
+    .search-conatiner {
+        padding-top: 1% !important;
+        padding-left: 2% !important; // for 3 input
+        display: flex;
+    }
+
+    .submit-button {
+        border: 0;
+        border-radius: 60px;
+        width: 5%;
+        height: 44px;
+        background: #cac7ff;
+        cursor: pointer;
+        margin-left: 0.5%;
+        margin-top: 1%;
+    }
+
+    .view-edit-button {
+        border: 0;
+        border-radius: 60px;
+        width: 8%;
+        height: 44px;
+        background: #cac7ff;
+        cursor: pointer;
+        margin-left: 0.5%;
+        margin-top: 1%;
+    }
+
+    .delete-button {
+        border: 0;
+        border-radius: 60px;
+        width: 5%;
+        height: 44px;
+        background: #cac7ff;
+        cursor: pointer;
+        margin-left: 0.5%;
+        margin-top: 1%;
+    }
+
+
+    .edit-button {
+        border: 0;
+        border-radius: 60px;
+        width: 5%;
+        height: 44px;
+        cursor: pointer;
+        background: #ffbf00;
+    }
+
+    .example-radio-group {
+        display: inline-flex;
+        flex-direction: column;
+        margin-left: 1%;
+    }
+
+    .example-radio-button {
+        margin: -5px;
+    }
+
+    .example-selected-value {
+        margin: 15px 0;
+    }
+
+    .submit-button:hover {
+        background: transparent !important;
+    }
+
+    .input-hint {
+        padding-left: 24%;
+        font-size: 11px;
+        color: #acacac;
+        letter-spacing: 0.7px;
+    }
+
+    .final-text {
+        padding-top: 20px;
+    }
+
+    .footer-div {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background: transparent;
+
+        .footer-content {
+            font-size: 12px;
+            color: #09113f;
+            //color: #acacac;
+            margin-left: 28%;
+            letter-spacing: 0.5px;
+        }
+    }
+
+
+    .conditional-button-class-1 {
+        margin-left: 35%;
+        display: flex;
+    }
+
+    .conditional-button-class-2 {
+        display: contents;
+    }
+}

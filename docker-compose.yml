@@ -8,6 +8,10 @@ services:
     ports:
       - "8081:8081"
     environment:
+<<<<<<< HEAD
+      - DATABASE_URL=postgresql://postgres:SayMyName@db:5432/postgres
+
+=======
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=123456
       - POSTGRES_DB=postgres
@@ -17,6 +21,7 @@ services:
     #   - db
     networks:
       - my-network
+>>>>>>> bfffcc8188baa7e98df7784c1f4b2bbeb9f92d59
     
 
   db:
@@ -24,7 +29,7 @@ services:
     restart: always
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 123456
+      POSTGRES_PASSWORD: SayMyName
       POSTGRES_DB: postgres
     ports:
       - "5432:5432"

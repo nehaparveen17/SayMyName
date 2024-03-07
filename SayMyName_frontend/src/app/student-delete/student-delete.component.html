@@ -1,0 +1,55 @@
+<div class="conatiner">
+    <div class="header">
+        <span class="title main">
+            Say My Name
+        </span>
+    </div>
+
+    <div class="content">
+        <div class="main-content">
+            <div class="content-text-1">Your Name Matters: A Celebration of Identity</div>
+            <div class="content-text-2">#OwnYourName</div>
+        </div>
+        <span style="display: flex;">
+            <div class="search-conatiner">
+                <div class="search-bar-student-id"
+                    style="width: 60%; max-width: 700px; background: rgba(255,255, 255, 0.2); display: flex; align-items: center; border-radius: 60px; padding: 0px 12px; backdrop-filter: blur(4px) saturate(180%); height: 57px;">
+                    <input type="text" placeholder="Student ID" name="search"
+                        matTooltip="Enter your Student ID. It should be of 9 digits. ex. 500226573"
+                        matTooltipPosition="below" [(ngModel)]="student_id">
+                </div>
+                <button mat-raised-button matTooltipPosition="above" matTooltip="View a record" 
+                class="search-button" type="submit" (click)="handleUserAction('search','')">
+                <!-- <span>Delete</span> -->
+                <mat-icon style="font-size: 20px; padding-left: 8%;">search</mat-icon>
+            </button>
+            </div>
+        </span>
+        <ng-template [ngIf]="display_content_card === true">
+            <div class="content-card">
+                <mat-card class="example-card">
+                    <div style="margin-bottom: 1%; margin-top: 0.5%; text-align: center;">
+                        <p>Student ID: {{this.student_id}}</p>
+                        <p>Pronoun: {{this.pronoun}}</p>
+                        <p>First Name: {{this.firstName}}</p>
+                        <p>Last Name: {{this.lastName}}</p>
+                        <p>Preferred Name: {{this.preferredName}}</p>
+                        <p>Phonetics: {{this.phoneticSelection}}</p>
+                    </div>
+                    <button mat-raised-button matTooltipPosition="right" matTooltip="Delete record"
+                    class="delete-button" type="submit" (click)="handleUserAction('delete','')">
+                    <span><mat-icon class="decision-icon">delete</mat-icon></span>
+                </button>
+                </mat-card>
+            </div>
+        </ng-template>
+    </div>
+    <footer>
+        <div class="footer-div">
+            <p class="footer-content">Copyright &copy;2023 SayMyName; Loyalist College, Belleville, Canada. All rights
+                reserved.</p>
+        </div>
+    </footer>
+</div>
+<ngx-ui-loader fgsColor="white" bgsColor="white" fgsType="fading-circle" text="Please Wait..." textColor="white"
+    textPosition="center-center" pbColor="white"></ngx-ui-loader>
