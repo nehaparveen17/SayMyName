@@ -50,7 +50,19 @@ export class StudentEditViewComponent {
   handleUserAction = (type: string, event: any) => {
     switch (type.toLowerCase()) {
       case 'view': {
-        this.viewDetails()
+        if (this.student_id?.length == 9 ) {
+          if (/^\d+$/.test(this.student_id)) {
+            this.viewDetails()
+          }
+          else {
+            this.displayMessage('Student ID should be in number only', 'ERROR')
+            this.student_id = "";
+          }
+        }
+        else {
+          this.displayMessage('Student ID should be of 9 digits', 'ERROR')
+          this.student_id = "";
+        }
         break;
       }
       case 'edit_first_name': {
@@ -188,22 +200,22 @@ export class StudentEditViewComponent {
   private viewDetails = () => {
     this.ngxService.start();
     this.httpClient.get('http://127.0.0.1:8081/getRecord/?studentID=' + parseInt(this.student_id)).subscribe((data: any) => {
-      let requestedData: any = data
-      if (requestedData?.status === "success") {
-      this.firstName = data?.results[0]?.first_name;
-      this.lastName = data?.results[0]?.last_name;
-      this.preferredName = data?.results[0]?.preferred_name;
-      this.phoneticSelection = data?.results[0]?.phonetics_selection;
-      this.pronoun = data?.results[0]?.pronoun;
-      this.display_content_card = true;
-      this.ngxService.stop();
-      this.displayMessage('Successfully retrieved details.', 'SUCCESS')}
-      else {
-        this.displayMessage(requestedData?.message, 'ERROR')
+      if (data?.status === "success"){
+        this.firstName = data?.results[0]?.first_name;
+        this.lastName = data?.results[0]?.last_name;
+        this.preferredName = data?.results[0]?.preferred_name;
+        this.phoneticSelection = data?.results[0]?.phonetics_selection;
+        this.pronoun = data?.results[0]?.pronoun;
+        this.display_content_card = true;
         this.ngxService.stop();
+        this.displayMessage("Successfully record fetched ", 'SUCCESS')
       }
+      else {
+        this.ngxService.stop();
+        this.displayMessage(data?.message, 'ERROR')
+      }
+
     })
-  
   }
 
   private updateDetails = (reqObj: any) => {
