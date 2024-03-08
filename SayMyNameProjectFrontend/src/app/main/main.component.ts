@@ -174,56 +174,80 @@ export class MainComponent {
       case 'search': {
         this.display_content_card = false;
         this.display_content_card_for_view_only = false;
-        if ((this.student_ID !== '' || this.student_ID !== null || this.student_ID !== undefined) && (/^\d+$/.test(this.student_ID)) && this.student_ID?.length == 9 && this.student_pronoun == '' && this.student_Name == '' && this.first_name == '' && this.last_name == '') {
+        // if ((this.student_ID !== '' || this.student_ID !== null || this.student_ID !== undefined) && (/^\d+$/.test(this.student_ID)) && this.student_ID?.length == 9 && this.student_pronoun == '' && this.student_Name == '' && this.first_name == '' && this.last_name == '') {
 
-          this.viewDetails()
-        }
-        else {
-          if (this.student_ID == '' || this.student_ID == null || this.student_ID == undefined) {
-            this.displayMessage('Please enter the Student ID', 'ERROR')
+        //   this.viewDetails()
+        // }
+        // else {
+          if (this.student_ID == ''){
+            this.displayMessage('Please enter the student ID', 'ERROR')
           }
           else {
             if (/^\d+$/.test(this.student_ID)) {
               if (this.student_ID?.length == 9) {
-                // if(this.student_pronoun = ''){
+                if(this.student_pronoun !== ''){
+                  if(this.student_Name !== ''){
                     if (/^[a-zA-Z ]*$/.test(this.student_Name)) {
-                      if (/^[a-zA-Z ]*$/.test(this.first_name)) {
-                        if (/^[a-zA-Z ]*$/.test(this.last_name)) {
-                          let pronoun = ''
-                          this.listOfPronouns.forEach((ele: any) => {
-                            if (ele?.value === this.student_pronoun) {
-                              pronoun = ele?.viewValue
+                      if(this.first_name !== ''){
+                        if (/^[a-zA-Z ]*$/.test(this.first_name)) {
+                          if(this.last_name !== ''){
+                            if (/^[a-zA-Z ]*$/.test(this.last_name)) {
+                              let pronoun = ''
+                              this.listOfPronouns.forEach((ele: any) => {
+                                if (ele?.value === this.student_pronoun) {
+                                  pronoun = ele?.viewValue
+                                }
+                              })
+        
+                              let reqObj = {
+                                "first_name": this.first_name,
+                                "last_name": this.last_name,
+                                "student_id": parseInt(this.student_ID),
+                                "pronoun": pronoun,
+                                "intake": "Fall",
+                                "course": "AIGS",
+                                "year": 2023,
+                                "preferred_name": this.student_Name
+                              }
+                            
+                              this.getPhonetics(reqObj)
+        
+                              if (this.confirmed_Phonetics == '' || this.confirmed_Phonetics == undefined || this.confirmed_Phonetics == null) {
+                                this.show_functional_buttons = false;
+                              }
                             }
-                          })
-    
-                          let reqObj = {
-                            "first_name": this.first_name,
-                            "last_name": this.last_name,
-                            "student_id": parseInt(this.student_ID),
-                            "pronoun": pronoun,
-                            "intake": "Fall",
-                            "course": "AIGS",
-                            "year": 2023,
-                            "preferred_name": this.student_Name
+                            else {
+                              this.displayMessage('Last Name can only contain lower and uppercase alphabets including space.', 'ERROR')
+                            }
                           }
-                          this.getPhonetics(reqObj)
-    
-                          if (this.confirmed_Phonetics == '' || this.confirmed_Phonetics == undefined || this.confirmed_Phonetics == null) {
-                            this.show_functional_buttons = false;
+                          else {
+                            this.displayMessage('Please enter the last name.', 'ERROR')
                           }
+                         
                         }
                         else {
-                          this.displayMessage('Last Name can only contain lower and uppercase alphabets including space.', 'ERROR')
+                          this.displayMessage('First Name can only contain lower and uppercase alphabets including space.', 'ERROR')
                         }
                       }
                       else {
-                        this.displayMessage('First Name can only contain lower and uppercase alphabets including space.', 'ERROR')
+                        this.displayMessage('Please enter the first name.', 'ERROR')
                       }
+                     
     
                     }
                     else {
                       this.displayMessage('Preferred Name can only contain lower and uppercase alphabets including space.', 'ERROR')
                     }
+                  }
+                  else {
+                    this.displayMessage('Please enter the preferred name.', 'ERROR')
+                  }
+                 
+                }
+                else {
+                  this.displayMessage('Please enter the pronoun.', 'ERROR')
+                }
+                    
               }
               else {
                 this.displayMessage('Student ID should be of 9 digits', 'ERROR')
@@ -232,7 +256,7 @@ export class MainComponent {
             else {
               this.displayMessage('Student ID should be in number only', 'ERROR')
             }
-          }
+          // }
         }
         break;
       }
@@ -351,7 +375,7 @@ export class MainComponent {
   // calling the service from the backend to get the required phonetics.
   private getPhonetics = (reqObj: any) => {
     this.ngxService.start();
-    this.httpClient.post('http://127.0.0.1:8081/createpost', reqObj).subscribe(data => {
+    this.httpClient.post('http://127.0.0.1:8081/createpost', reqObj).subscribe((data:any)=> {
       let requestedData: any = data
       if (requestedData?.status === "success") {
         this.ngxService.stop();
@@ -393,7 +417,7 @@ export class MainComponent {
 
   private giveUserFeedback = (reqObj: any) => {
     this.ngxService.start();
-    this.httpClient.post('http://127.0.0.1:8081/userfeedback', reqObj).subscribe(data => {
+    this.httpClient.post('http://127.0.0.1:8081/userfeedback', reqObj).subscribe((data:any) => {
       let requestedData: any = data
       if (requestedData?.status === "success") {
         this.ngxService.stop();
@@ -416,7 +440,7 @@ export class MainComponent {
   private savePhonetics = (reqObj: any) => {
     this.final_phonetics = reqObj?.phonetics_selection
     this.ngxService.start();
-    this.httpClient.post('http://127.0.0.1:8081/selection', reqObj).subscribe(data => {
+    this.httpClient.post('http://127.0.0.1:8081/selection', reqObj).subscribe((data:any) => {
       let requestedData: any = data
       if (requestedData?.status === "success") {
         this.edit_button_flag = true;
@@ -435,32 +459,32 @@ export class MainComponent {
   }
 
 
-  private viewDetails = () => {
-    this.ngxService.start();
-    this.httpClient.get('http://127.0.0.1:8081/getRecord/?studentID=' + parseInt(this.student_ID)).subscribe((data: any) => {
-     if(data?.status === "success"){
-      this.listOfPronouns.forEach((ele: any) => {
-        let pronoun = data?.results[0]?.pronoun
-        if (ele?.viewValue === pronoun) {
-          this.student_pronoun = ele?.value
-        }
-      })
-      this.first_name = data?.results[0]?.first_name
-      this.last_name = data?.results[0]?.last_name
-      this.student_Name = data?.results[0]?.preferred_name
-      this.phonetics_selection = data?.results[0]?.phonetics_selection
-      this.ngxService.stop();
-      this.displayMessage("Sucessfully record fetched", 'SUCCESS')
-      this.get_audio_for_phonetics = this.phonetics_selection
-      this.play_audio_button = true
-      this.display_content_card_for_view_only = true;
-     }
-     else {
-      this.ngxService.stop();
-      this.displayMessage(data?.message, 'ERROR')
-     }
+  // private viewDetails = () => {
+  //   this.ngxService.start();
+  //   this.httpClient.get('http://127.0.0.1:8081/getRecord/?studentID=' + parseInt(this.student_ID)).subscribe((data: any) => {
+  //    if(data?.status === "success"){
+  //     this.listOfPronouns.forEach((ele: any) => {
+  //       let pronoun = data?.results[0]?.pronoun
+  //       if (ele?.viewValue === pronoun) {
+  //         this.student_pronoun = ele?.value
+  //       }
+  //     })
+  //     this.first_name = data?.results[0]?.first_name
+  //     this.last_name = data?.results[0]?.last_name
+  //     this.student_Name = data?.results[0]?.preferred_name
+  //     this.phonetics_selection = data?.results[0]?.phonetics_selection
+  //     this.ngxService.stop();
+  //     this.displayMessage("Sucessfully record fetched", 'SUCCESS')
+  //     this.get_audio_for_phonetics = this.phonetics_selection
+  //     this.play_audio_button = true
+  //     this.display_content_card_for_view_only = true;
+  //    }
+  //    else {
+  //     this.ngxService.stop();
+  //     this.displayMessage(data?.message, 'ERROR')
+  //    }
       
-    })
-  }
+  //   })
+  // }
 
 }
