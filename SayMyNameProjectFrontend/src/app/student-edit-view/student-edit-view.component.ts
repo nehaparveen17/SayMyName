@@ -50,17 +50,17 @@ export class StudentEditViewComponent {
   handleUserAction = (type: string, event: any) => {
     switch (type.toLowerCase()) {
       case 'view': {
-        if (this.student_id?.length == 9 ) {
-          if (/^\d+$/.test(this.student_id)) {
+        if (/^\d+$/.test(this.student_id)) {
+          if (this.student_id?.length == 9 ) {
             this.viewDetails()
           }
           else {
-            this.displayMessage('Student ID should be in number only', 'ERROR')
+            this.displayMessage('Student ID should be of 9 digits', 'ERROR')
             this.student_id = "";
           }
         }
         else {
-          this.displayMessage('Student ID should be of 9 digits', 'ERROR')
+          this.displayMessage('Student ID should be in number only', 'ERROR')
           this.student_id = "";
         }
         break;
