@@ -154,7 +154,7 @@ async def selection(details:p_model_type.Selection, db: Session= Depends(get_db)
                         "phonetic":input_details["phonetics_selection"],
                         "votes":1}
             #add to db
-            new_data = models.Namepronounciation(**selection_data)
+            new_data = models.Namepronunciation(**selection_data)
             try:
                 db.add(new_data)
                 db.commit()
@@ -182,7 +182,7 @@ async def selection(details:p_model_type.Selection, db: Session= Depends(get_db)
                     "audio_selection":input_details["audio_selection"],
                     "show":input_details["show"]} 
         #add to db
-        new_data = models.Namepronounciation(**selection_data)
+        new_data = models.Namepronunciation(**selection_data)
         try:
             db.add(new_data)
             db.commit()
@@ -221,15 +221,15 @@ async def get_students(studentID: str = None, db: Session= Depends(get_db)):
              models.Student_data.first_name,
              models.Student_data.last_name,
              models.Student_data.preferred_name,
-             models.Namepronounciation.phonetics_selection,
+             models.Namepronunciation.phonetics_selection,
              models.Student_data.pronoun,
              models.Student_data.course,
              models.Student_data.intake,
              models.Student_data.year,
-             models.Namepronounciation.show)
+             models.Namepronunciation.show)
              .join(
-                 models.Namepronounciation,
-                 models.Student_data.student_id == models.Namepronounciation.student_id
+                 models.Namepronunciation,
+                 models.Student_data.student_id == models.Namepronunciation.student_id
                  )
             )
  
@@ -288,15 +288,15 @@ async def get_students(studentID: str = None,
              models.Student_data.first_name,
              models.Student_data.last_name,
              models.Student_data.preferred_name,
-             models.Namepronounciation.phonetics_selection,
+             models.Namepronunciation.phonetics_selection,
              models.Student_data.pronoun,
              models.Student_data.course,
              models.Student_data.intake,
              models.Student_data.year,
-             models.Namepronounciation.show)
+             models.Namepronunciation.show)
              .join(
-                 models.Namepronounciation,
-                 models.Student_data.student_id == models.Namepronounciation.student_id
+                 models.Namepronunciation,
+                 models.Student_data.student_id == models.Namepronunciation.student_id
                  )
             )
 
@@ -402,7 +402,7 @@ async def selection(details:p_model_type.Update, db: Session= Depends(get_db)):
     try:
         db.query(models.Student_data).filter(models.Student_data.student_id == details.student_id).update(student_data, synchronize_session=False)
         db.commit()
-        db.query(models.Namepronounciation).filter(models.Namepronounciation.student_id == details.student_id).update(pronounciation_data, synchronize_session=False)
+        db.query(models.Namepronunciation).filter(models.Namepronunciation.student_id == details.student_id).update(pronounciation_data, synchronize_session=False)
         db.commit()
         db.query(models.Votes).filter(models.Votes.phonetic == pronounciation_data["phonetics_selection"])
     except Exception as e:
@@ -444,7 +444,7 @@ async def delete_record(student_id: str, db: Session= Depends(get_db)):
                 "message": f"error occured couldn't fetch details for student ID: {student_id}"}
     if record_details != None:
         try:
-            db.query(models.Namepronounciation).filter(models.Namepronounciation.student_id == student_id).delete(synchronize_session=False)
+            db.query(models.Namepronunciation).filter(models.Namepronunciation.student_id == student_id).delete(synchronize_session=False)
             db.commit()
             db.query(models.Userfeedback).filter(models.Userfeedback.student_id == student_id).delete(synchronize_session=False)
             db.commit()
