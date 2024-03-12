@@ -20,8 +20,8 @@ class Student_data(Base):
     audio_binary = Column(String)
     created_at = Column(TIMESTAMP(timezone=True), nullable=False, server_default= text('now()'))
 
-class Namepronounciation(Base):
-    __tablename__ = "pronounciation"
+class Namepronunciation(Base):
+    __tablename__ = "pronunciation"
 
     id = Column(Integer, primary_key=True, nullable=False)
     student_id = Column(Integer, ForeignKey(Student_data.student_id), nullable=False, unique=True)
