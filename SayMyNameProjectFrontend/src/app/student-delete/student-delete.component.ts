@@ -64,6 +64,7 @@ switch (type.toLowerCase()) {
   }
 
   private viewDetails = () => {
+    
     let tempStudentID = this.student_id
     this.ngxService.start();
     this.httpClient.get('http://127.0.0.1:8081/getRecord/?studentID=' + parseInt(this.student_id)).subscribe((data: any) => {
