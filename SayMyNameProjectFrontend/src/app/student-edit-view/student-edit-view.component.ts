@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-student-edit-view',
@@ -41,10 +42,15 @@ export class StudentEditViewComponent {
     private httpClient: HttpClient,
     private ngxService: NgxUiLoaderService,
     public dialog: MatDialog,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
 
+  }
+
+  redirect = () => {
+    this.router.navigate(['/'])
   }
 
   handleUserAction = (type: string, event: any) => {
