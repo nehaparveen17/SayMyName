@@ -64,6 +64,7 @@ switch (type.toLowerCase()) {
   }
 
   private viewDetails = () => {
+    let tempStudentID = this.student_id
     this.ngxService.start();
     this.httpClient.get('http://10.28.18.215:8081/getRecord/?studentID=' + parseInt(this.student_id)).subscribe((data: any) => {
       if (data?.status === "success"){
@@ -78,15 +79,15 @@ switch (type.toLowerCase()) {
       }
       else {
         this.ngxService.stop();
-        this.displayMessage(data?.message, 'ERROR')
-        this.student_id = ""
+        this.student_id = tempStudentID
+        this.deleteRecord()
       }
     
     })
   }
 
 
-  private deleteRecord = (reqObj: any) => {
+  private deleteRecord = () => {
     this.ngxService.start();
     this.httpClient.delete('http://10.28.18.215:8081/deleterecord?student_id=' + parseInt(this.student_id)).subscribe(data => {
       let requestedData: any = data
@@ -143,7 +144,7 @@ switch (type.toLowerCase()) {
       let reqObj = {
         student_id: parseInt(this.student_id)
       } 
-      this.deleteRecord(reqObj)
+      this.deleteRecord()
      } 
     
     });

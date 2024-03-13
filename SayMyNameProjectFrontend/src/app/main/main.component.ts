@@ -190,15 +190,17 @@ export class MainComponent {
                     if (/^[a-zA-Z ]*$/.test(this.student_Name)) {
                       if(this.first_name !== ''){
                         if (/^[a-zA-Z ]*$/.test(this.first_name)) {
-                          if(this.last_name !== ''){
-                            if (/^[a-zA-Z ]*$/.test(this.last_name)) {
+                          // if(this.last_name !== ''){
+                          //   if (/^[a-zA-Z ]*$/.test(this.last_name)) {
                               let pronoun = ''
                               this.listOfPronouns.forEach((ele: any) => {
                                 if (ele?.value === this.student_pronoun) {
                                   pronoun = ele?.viewValue
                                 }
                               })
-        
+                              if (this.last_name === ''){
+                                this.last_name = 'No Last Name'
+                              }
                               let reqObj = {
                                 "first_name": this.first_name,
                                 "last_name": this.last_name,
@@ -215,14 +217,14 @@ export class MainComponent {
                               if (this.confirmed_Phonetics == '' || this.confirmed_Phonetics == undefined || this.confirmed_Phonetics == null) {
                                 this.show_functional_buttons = false;
                               }
-                            }
-                            else {
-                              this.displayMessage('Last Name can only contain lower and uppercase alphabets including space.', 'ERROR')
-                            }
-                          }
-                          else {
-                            this.displayMessage('Please enter the last name.', 'ERROR')
-                          }
+                          //   }
+                          //   else {
+                          //     this.displayMessage('Last Name can only contain lower and uppercase alphabets including space.', 'ERROR')
+                          //   }
+                          // }
+                          // else {
+                          //   this.displayMessage('Please enter the last name.', 'ERROR')
+                          // }
                          
                         }
                         else {
