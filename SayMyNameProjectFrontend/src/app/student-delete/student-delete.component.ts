@@ -60,7 +60,7 @@ switch (type.toLowerCase()) {
 
   private viewDetails = () => {
     this.ngxService.start();
-    this.httpClient.get('http://127.0.0.1:8081/getRecord/?studentID=' + parseInt(this.student_id)).subscribe((data: any) => {
+    this.httpClient.get('http://10.28.18.215:8081/getRecord/?studentID=' + parseInt(this.student_id)).subscribe((data: any) => {
       if (data?.status === "success"){
         this.firstName = data?.results[0]?.first_name;
         this.lastName = data?.results[0]?.last_name;
@@ -83,7 +83,7 @@ switch (type.toLowerCase()) {
 
   private deleteRecord = (reqObj: any) => {
     this.ngxService.start();
-    this.httpClient.delete('http://127.0.0.1:8081/deleterecord?student_id=' + parseInt(this.student_id)).subscribe(data => {
+    this.httpClient.delete('http://10.28.18.215:8081/deleterecord?student_id=' + parseInt(this.student_id)).subscribe(data => {
       let requestedData: any = data
       if (requestedData?.status === "success") {
         this.ngxService.stop();
