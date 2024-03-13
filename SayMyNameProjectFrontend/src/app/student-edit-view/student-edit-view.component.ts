@@ -205,7 +205,7 @@ export class StudentEditViewComponent {
 
   private viewDetails = () => {
     this.ngxService.start();
-    this.httpClient.get('http://10.28.18.215:8081/getRecord/?studentID=' + parseInt(this.student_id)).subscribe((data: any) => {
+    this.httpClient.get('http://127.0.0.1:8081/getRecord/?studentID=' + parseInt(this.student_id)).subscribe((data: any) => {
       if (data?.status === "success"){
         this.firstName = data?.results[0]?.first_name;
         this.lastName = data?.results[0]?.last_name;
@@ -226,7 +226,7 @@ export class StudentEditViewComponent {
 
   private updateDetails = (reqObj: any) => {
     this.ngxService.start();
-    this.httpClient.put("http://10.28.18.215:8081/update", reqObj).subscribe((data: any) => {
+    this.httpClient.put("http://127.0.0.1:8081/update", reqObj).subscribe((data: any) => {
       if (data?.status.toLowerCase() === "success") {
         this.ngxService.stop();
         this.displayMessage(data?.message, 'SUCCESS');
