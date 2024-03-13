@@ -43,7 +43,8 @@ origins = ["http://localhost.tiangolo.com",
     "http://localhost:4200",
     "http://app:4200",
     "http://192.168.2.72:4200",
-    "http://10.28.5.119:4200"]
+    "http://10.28.5.119:4200",
+    "http://10.28.18.215:4200"]
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
@@ -444,16 +445,17 @@ async def delete_record(student_id: str, db: Session= Depends(get_db)):
                 "message": f"error occured couldn't fetch details for student ID: {student_id}"}
     if record_details != None:
         try:
-            db.query(models.Namepronunciation).filter(models.Namepronunciation.student_id == student_id).delete(synchronize_session=False)
-            db.commit()
-            db.query(models.Userfeedback).filter(models.Userfeedback.student_id == student_id).delete(synchronize_session=False)
-            db.commit()
-            db.query(models.Student_data).filter(models.Student_data.student_id == student_id).delete(synchronize_session=False)
-            db.commit()
+            if record_details != None:
+                db.query(models.Namepronunciation).filter(models.Namepronunciation.student_id == student_id).delete(synchronize_session=False)
+                db.commit()
+            if record_details != None:
+                db.query(models.Userfeedback).filter(models.Userfeedback.student_id == student_id).delete(synchronize_session=False)
+                db.commit()
+            if record_details != None:
+                db.query(models.Student_data).filter(models.Student_data.student_id == student_id).delete(synchronize_session=False)
+                db.commit()
         except Exception as e:
-            db.rollback()
-            return {"status": "failed",
-                    "message": e}
+            pass
     else:
         return{"status": "failed",
                "message": f"Record with {student_id} doesn't exist in the system "}
