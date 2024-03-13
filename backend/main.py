@@ -444,18 +444,24 @@ async def delete_record(student_id: str, db: Session= Depends(get_db)):
         return {"status": "failed",
                 "message": f"error occured couldn't fetch details for student ID: {student_id}"}
     if record_details != None:
-        try:
-            if record_details != None:
+        if record_details != None:
+            try:
                 db.query(models.Namepronunciation).filter(models.Namepronunciation.student_id == student_id).delete(synchronize_session=False)
                 db.commit()
-            if record_details != None:
+            except Exception as e:
+                pass
+        if record_details != None:
+            try:
                 db.query(models.Userfeedback).filter(models.Userfeedback.student_id == student_id).delete(synchronize_session=False)
                 db.commit()
-            if record_details != None:
+            except Exception as e:
+                pass
+        if record_details != None:
+            try:
                 db.query(models.Student_data).filter(models.Student_data.student_id == student_id).delete(synchronize_session=False)
                 db.commit()
-        except Exception as e:
-            pass
+            except Exception as e:
+                pass
     else:
         return{"status": "failed",
                "message": f"Record with {student_id} doesn't exist in the system "}
