@@ -26,10 +26,15 @@ export class StudentDeleteComponent {
     private httpClient: HttpClient,
     private ngxService: NgxUiLoaderService,
     public dialog: MatDialog,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
 
+  }
+
+  redirect = () => {
+    this.router.navigate(['/'])
   }
 
   handleUserAction = (type: string, event: any) => {
