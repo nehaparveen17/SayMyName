@@ -11,9 +11,9 @@
 
 # different_language(text="al-behrt")
 
-import pandas as pd
-df = pd.read_csv("final_phonetics_data1.csv")
-print(df)
+# import pandas as pd
+# df = pd.read_csv("final_phonetics_data1.csv")
+# print(df)
 # import requests
 # from openai import OpenAI
 
@@ -181,3 +181,60 @@ print(df)
 #     print(f"The syllables for {name} are: {result}")
 # else:
 #     print(f"Syllables for {name} not found.")
+
+
+# from Split_word import Splitword
+
+# #Create student Record
+
+# def tt_speech():
+#     # print(details.first_name, details.pronoun)
+
+    
+
+#     # new_dict = details.dict()
+#     # # print(new_dict)
+#     # name = [details["first_name"], details["last_name"]]
+#     # full_name = " ".join(name)
+#     # new_dict["full_name"] = full_name  
+#     # file_name = full_name+str(details["student_id"])  
+#     # pronoun = details["pronoun"]
+
+
+
+
+
+#     pro_data = {
+#     "student_id" : "123456789",
+#     "first_name" : "vijay"
+#     # "last_name": new_student_details.last_name
+#     }
+
+#     # first_name_pro_eng, last_name_pro_eng =Splitword().Phonetics_eng_words(first_name=pro_data["first_name"], last_name=pro_data["last_name"])
+#     first_name_pro, f_name_num= Splitword().pronouncing_word(first_name=pro_data["first_name"] )
+#     split_first_name = Splitword().seperating_name(first_name=pro_data["first_name"])
+#     # first_name_pro, last_name_pro, f_name_num, l_name_num = Splitword().pronouncing_word(first_name=pro_data["first_name"], last_name=pro_data["last_name"])
+#     # split_first_name, split_last_name = Splitword().seperating_name(first_name=pro_data["first_name"], last_name=pro_data['last_name'])
+
+
+
+
+#     # pro_data["first_name_p_eng"] = first_name_pro_eng
+#     pro_data["first_name_p"] = first_name_pro
+#     # pro_data["first_namenum_p"] = f_name_num
+#     # pro_data["last_name_p_eng"] = last_name_pro_eng
+#     # pro_data["last_name_p"] = last_name_pro
+#     # pro_data["last_namenum_p"] = l_name_num
+#     pro_data["split_first_name"] = split_first_name
+#     # pro_data["split_last_name"] = split_last_name
+
+
+#     # name_list = pro_data["full_name"].split()
+
+#     # results = db.query(models.Namepronounciation).filter(models.Namepronounciation.name.in_(name_list)).order_by(models.Namepronounciation.votes.desc()).limit(3).all()
+
+
+#     return {"data": pro_data}
+
+# x = tt_speech()
+# print(x)
