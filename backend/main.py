@@ -112,7 +112,6 @@ async def tt_speech(details:p_model_type.Post, db: Session= Depends(get_db)):
 
 
     name_list = pro_data["preferred_name"].split(",")
-    print(pro_data)
 
 #calling DB to get data
     results = db.query(models.Votes).filter(models.Votes.name.in_(name_list)).order_by(models.Votes.votes.desc()).limit(3).all()
@@ -431,7 +430,6 @@ async def user_feedback(details:p_model_type.userfeedback, db: Session= Depends(
         db.add(new_data)
         db.commit()
     except Exception as e:
-        print(e)
         db.rollback()
         return {"status": "failed",
                 "message": "incorrect details received or feedback for this user is already exist."}
