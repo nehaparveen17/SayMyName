@@ -3,3 +3,5 @@ SayMyNameProjectFrontend/node_modules
 SayMyNameProjectFrontend/.angular
 backend/__pycache__
 .env
+.vs
+.vscode
