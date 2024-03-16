@@ -485,7 +485,7 @@ async def get_audio(phonetics_name:str, db: Session=Depends(get_db)):
         different_language(text=phonetics_name, lang="en")
     except Exception as e:
         return{"status": "failed",
-               "message": "Audio service is currently unavailable, please try again later"}
+               "message": "Audio services are currently unavailable, please try again later"}
     file_path = f'{phonetics_name}.wav'
     try:
         with open(file_path, "rb") as file:  # Open in binary mode 'rb'
@@ -510,7 +510,7 @@ async def get_audio(preferred_name:str, db: Session=Depends(get_db)):
         different_language(text=preferred_name, lang="en")
     except Exception as e:
         return{"status": "failed",
-               "message": "Audio service is currently unavailable, please try again later"}
+               "message": "Audio services are currently unavailable, please try again later"}
     file_path = f'{preferred_name}.wav'
     try:
         with open(file_path, "rb") as file:  
