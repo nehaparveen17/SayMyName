@@ -26,12 +26,13 @@
 
         .main {
             text-transform: uppercase;
+            font-weight: bolder;
             background-image: linear-gradient(-225deg,
-            #f42153 0%,
-            #f5406b 29%,
-            #f76084 67%,
-            #f8809c 100%,
-            #fa9fb5 100%);
+                    #f42153 0%,
+                    #f5406b 29%,
+                    #f76084 67%,
+                    #f8809c 100%,
+                    #fa9fb5 100%);
             background-size: auto auto;
             background-clip: border-box;
             background-size: 200% auto;
@@ -44,8 +45,6 @@
             display: inline-block;
             font-size: 25px;
             font-family: Bahnschrift, 'Segoe UI', 'Segoe UI Web (West European)', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', sans-serif;
-            font-weight: 400;
-
         }
 
         @keyframes textclip {
@@ -97,7 +96,7 @@
                 width: 55%;
                 box-shadow: 8px 8px #549aee;
                 padding: 8px 20px;
-                border-radius: 5px 15px;  
+                border-radius: 5px 15px;
 
                 .edit-button {
                     background: none;
@@ -111,13 +110,15 @@
                     font-family: Bahnschrift, 'Segoe UI', 'Segoe UI Web (West European)', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', sans-serif;
                     font-weight: 400;
                 }
+
                 .edit-button:hover {
-                 cursor: pointer;
-                 color: black;
+                    cursor: pointer;
+                    color: black;
                 }
             }
-            }
+        }
     }
+
     .search-bar-student-id input {
         background: transparent;
         flex: 1;
@@ -146,7 +147,7 @@
         text-overflow: ellipsis;
     }
 
-   
+
     ::placeholder {
         color: #fff;
     }
@@ -162,13 +163,14 @@
         left: 0;
         bottom: 0;
         width: 100%;
-        background: transparent;
+        background: #549aee;
+        padding-top: 6px;
 
         .footer-content {
             font-size: 12px;
-            color: #09113f;
+            color: #fff;
             //color: #acacac;
-            margin-left: 28%;
+            margin-left: 25%;
             letter-spacing: 0.5px;
         }
     }
@@ -196,6 +198,7 @@
         font-family: Bahnschrift, 'Segoe UI', 'Segoe UI Web (West European)', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', sans-serif;
         font-weight: 400;
     }
+
     .view-button:hover {
         background: #ff6347 !important;
     }
@@ -205,7 +208,7 @@
         margin-left: 3%;
         height: 53px;
     }
-    
+
 }
 
 ::ng-deep .example-full-width.mdc-text-field--no-label:not(.mdc-text-field--outlined):not(.mdc-text-field--textarea) .mat-mdc-form-field-infix {
@@ -227,4 +230,36 @@
     cursor: pointer;
     margin-left: 42%;
     margin-top: 0.9%;
+}
+
+.play-button {
+    border: 0;
+    border-radius: 14px !important;
+    width: 17% !important;
+    height: 35px !important;
+    background: #ffbf00;
+    cursor: pointer;
+    margin-left: 2%;
+    margin-top: 1%;
+}
+
+.decision-icon {
+    padding-top: 4px !important;
+    font-size: 20px;
+    margin-left: 9%;
+}
+
+::ng-deep .decision-icon.mat-mdc-unelevated-button>.mat-icon,
+.mat-mdc-raised-button>.mat-icon,
+.mat-mdc-outlined-button>.mat-icon {
+    margin-left: 0;
+    // margin-right: 8px;
+    display: inline-block;
+    position: relative;
+    vertical-align: top;
+    font-size: 1.125rem;
+    height: 0rem;
+    width: 0rem;
+    // margin-left: -4px;
+    /* margin-right: 8px; */
 }

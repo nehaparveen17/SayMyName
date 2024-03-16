@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Router } from '@angular/router';
-import {MatSelectChange} from '@angular/material/select';
+import { MatSelectChange } from '@angular/material/select';
 import { DialogModuleComponent } from '../dialog-module/dialog-module.component';
 
 @Component({
@@ -32,6 +32,8 @@ export class StudentEditViewComponent {
   public view_pronoun_flag: boolean = false;
   public edited_pronoun: any = undefined;
   public update_button_flag: boolean = true;
+  public play_audio_button_flag: boolean = false;
+  public get_audio_for_phonetics: string = ""
   public listOfPronouns = [
     { value: '01', viewValue: 'She / Her' },
     { value: '02', viewValue: 'He / Him' },
@@ -68,17 +70,17 @@ export class StudentEditViewComponent {
       return ele?.value !== 'userAdded'
     })
     dialogRef.afterClosed().subscribe(result => {
-      if(result === 'No'){
+      if (result === 'No') {
         this.edited_pronoun = ''
-       }
-       else {
+      }
+      else {
         this.listOfPronouns.push({ value: 'userAdded', viewValue: result })
-        this.listOfPronouns.forEach((ele:any) => {
-          if(ele?.value === 'userAdded'){
+        this.listOfPronouns.forEach((ele: any) => {
+          if (ele?.value === 'userAdded') {
             this.edited_pronoun = ele?.viewValue
           }
         })
-       } 
+      }
     });
   }
 
@@ -90,7 +92,7 @@ export class StudentEditViewComponent {
     switch (type.toLowerCase()) {
       case 'view': {
         if (/^\d+$/.test(this.student_id)) {
-          if (this.student_id?.length == 9 ) {
+          if (this.student_id?.length == 9) {
             this.viewDetails()
           }
           else {
@@ -148,9 +150,6 @@ export class StudentEditViewComponent {
     }
   }
 
-  // change(event: any) {
-  //   this.update_button_flag = false
-  // }
 
   sendTheNewFirstNameValue(event: any) {
     let value: any
@@ -201,12 +200,47 @@ export class StudentEditViewComponent {
     let emp: any
     if (value == '' || value == undefined || value == null) {
       emp = this.phoneticSelection;
-      this.update_button_flag = true
+      this.update_button_flag = true;
+      this.play_audio_button_flag = true;
     }
     else {
       emp = value
-      this.update_button_flag = false
+      this.update_button_flag = false;
+      this.play_audio_button_flag = false;
     }
+    this.get_audio_for_phonetics = value;
+  }
+
+  playAudio(): void {
+    // Append the student name to the API URL as a query parameter
+    const apiUrl = `http://127.0.0.1:8081/getaudio?preferred_name=` + this.get_audio_for_phonetics;
+
+    // Send a GET request to your backend API to generate and play the audio
+    this.ngxService.start()
+    this.httpClient.get(apiUrl, { responseType: 'blob' })
+      .subscribe(
+        (response: any) => {
+          this.ngxService.stop()
+          if (response.status === 'failed') {
+            this.displayMessage(response.message, 'ERROR')
+          }
+          else {
+            // Create a blob URL from the audio data received
+            const blob = new Blob([response], { type: 'audio/wav' });
+            const url = window.URL.createObjectURL(blob);
+
+            // Create an audio element and set its source to the blob URL
+            const audio = new Audio();
+            audio.src = url;
+
+            // Play the audio
+            setTimeout(() => {
+              audio.play();
+            }, 1000);
+          }
+
+        },
+      );
   }
 
 
@@ -239,11 +273,12 @@ export class StudentEditViewComponent {
   private viewDetails = () => {
     this.ngxService.start();
     this.httpClient.get('http://127.0.0.1:8081/getRecord/?studentID=' + parseInt(this.student_id)).subscribe((data: any) => {
-      if (data?.status === "success"){
+      if (data?.status === "success") {
         this.firstName = data?.results[0]?.first_name;
         this.lastName = data?.results[0]?.last_name;
         this.preferredName = data?.results[0]?.preferred_name;
         this.phoneticSelection = data?.results[0]?.phonetics_selection;
+        this.get_audio_for_phonetics = this.phoneticSelection
         this.pronoun = data?.results[0]?.pronoun;
         this.display_content_card = true;
         this.ngxService.stop();

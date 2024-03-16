@@ -25,6 +25,7 @@
         }
 
         .main {
+            font-weight: bolder;
             text-transform: uppercase;
             background-image: linear-gradient(-225deg,
                     #f42153 0%,
@@ -44,7 +45,6 @@
             display: inline-block;
             font-size: 25px;
             font-family: Bahnschrift, 'Segoe UI', 'Segoe UI Web (West European)', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', sans-serif;
-            font-weight: 400;
         }
 
         @keyframes textclip {
@@ -386,6 +386,7 @@
         // backdrop-filter: blur(4px) saturate(180%);
 
     }
+
     ::ng-deep .intake-dropdown.mat-mdc-form-field-type-mat-select:not(.mat-form-field-disabled) .mat-mdc-text-field-wrapper {
         border-radius: 60px;
         padding: 0px 20px;
@@ -504,13 +505,14 @@
         left: 0;
         bottom: 0;
         width: 100%;
-        background: transparent;
+        background: #549aee;
+        padding-top: 6px;
 
         .footer-content {
             font-size: 12px;
-            color: #09113f;
+            color: #fff;
             //color: #acacac;
-            margin-left: 28%;
+            margin-left: 25%;
             letter-spacing: 0.5px;
         }
     }
@@ -528,4 +530,8 @@
     .my-tooltip {
         white-space: pre-line;
     }
+}
+
+::ng-deep .pronoun-dropdown .mat-mdc-select-value-text {
+    color: #fff;
 }

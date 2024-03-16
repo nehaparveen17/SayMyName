@@ -4,10 +4,13 @@
             Say My Name
         </span>
         <span>
-            <img src="/SayMyNameProjectFrontend/src/assets/images/LoyalistCollegeLogo.png" alt="Loyalist Logo" width="500" height="500" style="min-height: 50px; width: 500px;">
-        </span> 
+            <a href="https://loyalistcollege.com/" target="_blank">
+                <img src="assets/images/LoyalistCollegeLogo.png" alt="Loyalist Logo" width="160" height="60"
+                    style="min-height: 50px; width: 160px; margin-left: 47%; vertical-align: middle !important;">
+            </a>
+        </span>
     </div>
-   
+
     <div class="content">
         <div class="main-content">
             <div class="content-text-1">Your Name Matters: A Celebration of Identity</div>
@@ -21,9 +24,9 @@
                         matTooltip="Enter your Student ID. It should be of 9 digits. ex. 500226573"
                         matTooltipPosition="below">
                 </div>
-                <mat-form-field class="pronoun-dropdown"  matTooltip="Enter pronoun"
-                matTooltipPosition="below">
-                    <mat-select placeholder="Select Pronoun" [(ngModel)]="student_pronoun" (selectionChange)="pronounChanged($event)">
+                <mat-form-field class="pronoun-dropdown" matTooltip="Enter pronoun" matTooltipPosition="below">
+                    <mat-select placeholder="Select Pronoun" [(ngModel)]="student_pronoun"
+                        (selectionChange)="pronounChanged($event)">
                         <mat-option *ngFor="let pronoun of listOfPronouns" [value]="pronoun.value">
                             {{ pronoun.viewValue }}
                         </mat-option>
@@ -32,35 +35,33 @@
                 <div class="search-bar-student-name"
                     style="width: 16%; max-width: 700px; background: rgba(255,255, 255, 0.2); display: flex; align-items: center; border-radius: 60px; padding: 0px 12px; backdrop-filter: blur(4px) saturate(180%); height: 57px;">
                     <input type="text" placeholder="Preferred Name" name="search" [(ngModel)]="student_Name"
-                        matTooltip="Enter your Preferred Name"
-                        matTooltipPosition="below">>
+                        matTooltip="Enter your Preferred Name" matTooltipPosition="below">>
                 </div>
 
-               
-                <div class="search-bar-student-name"
-                style="width: 16%; max-width: 700px; background: rgba(255,255, 255, 0.2); display: flex; align-items: center; border-radius: 60px; padding: 0px 12px; backdrop-filter: blur(4px) saturate(180%); height: 57px; margin-left: 1%;">
-                <input type="text" placeholder="First Name" name="search" [(ngModel)]="first_name"
-                    matTooltip="Enter your First Name"
-                    matTooltipPosition="below">>
-            </div>
 
-            <div class="search-bar-student-name"
-            style="width: 16%; max-width: 700px; background: rgba(255,255, 255, 0.2); display: flex; align-items: center; border-radius: 60px; padding: 0px 12px; backdrop-filter: blur(4px) saturate(180%); height: 57px; margin-left: 1%;">
-            <input type="text" placeholder="Last Name" name="search" [(ngModel)]="last_name"
-                matTooltip="Enter your Last Name"
-                matTooltipPosition="below">>
-        </div>
-                <button mat-raised-button matTooltipPosition="above" matTooltip="Enter a new record" [disabled] = "submit_button_flag"
-                    class="submit-button" type="submit" (click)="handleUserAction('search','')">
+                <div class="search-bar-student-name"
+                    style="width: 16%; max-width: 700px; background: rgba(255,255, 255, 0.2); display: flex; align-items: center; border-radius: 60px; padding: 0px 12px; backdrop-filter: blur(4px) saturate(180%); height: 57px; margin-left: 1%;">
+                    <input type="text" placeholder="First Name" name="search" [(ngModel)]="first_name"
+                        matTooltip="Enter your First Name" matTooltipPosition="below">>
+                </div>
+
+                <div class="search-bar-student-name"
+                    style="width: 16%; max-width: 700px; background: rgba(255,255, 255, 0.2); display: flex; align-items: center; border-radius: 60px; padding: 0px 12px; backdrop-filter: blur(4px) saturate(180%); height: 57px; margin-left: 1%;">
+                    <input type="text" placeholder="Last Name" name="search" [(ngModel)]="last_name"
+                        matTooltip="Enter your Last Name" matTooltipPosition="below">>
+                </div>
+                <button mat-raised-button matTooltipPosition="above" matTooltip="Enter a new record"
+                    [disabled]="submit_button_flag" class="submit-button" type="submit"
+                    (click)="handleUserAction('search','')">
                     <span>Submit</span>
                 </button>
 
-                <button mat-raised-button matTooltipPosition="above" matTooltip="View and Edit record" 
-                class="view-edit-button" type="submit" (click)="handleUserAction('view-edit','')">
-                <span>View & Edit</span>
-            </button>
+                <button mat-raised-button matTooltipPosition="above" matTooltip="View and Edit record"
+                    class="view-edit-button" type="submit" (click)="handleUserAction('view-edit','')">
+                    <span>View & Edit</span>
+                </button>
 
-            <!-- <button mat-raised-button matTooltipPosition="above" matTooltip="Delete record"
+                <!-- <button mat-raised-button matTooltipPosition="above" matTooltip="Delete record"
 
             class="delete-button" type="submit" (click)="handleUserAction('delete','')">
             <span>Delete</span>
@@ -71,16 +72,17 @@
         <ng-template [ngIf]="display_content_card === true">
             <div class="content-card">
                 <mat-card class="example-card">
-                    <p style="margin-top: 1%;">Student ID: {{this.student_ID}}<span style="padding-left: 157px; vertical-align: middle !important; font-size: 11px;"><a href="" matTooltipPosition="above"
-                        matTooltip="Preferred Name: Elizabeth   Phonetics: ih-liz-uh-buhth" style="cursor: pointer;" matTooltipClass="my-tooltip">Sample Phonetics</a></span></p>
+                    <p style="margin-top: 1%;">Student ID: {{this.student_ID}}<span
+                            style="padding-left: 157px; vertical-align: middle !important; font-size: 11px;"><a href=""
+                                matTooltipPosition="above"
+                                matTooltip="Preferred Name: Elizabeth   Phonetics: ih-liz-uh-buhth"
+                                style="cursor: pointer;" matTooltipClass="my-tooltip">Sample Phonetics</a></span></p>
                     <p style="margin-top: 0.5%;">Preferred Name: {{this.student_Name}}</p>
                     <span style="display: flex;">
                         <p style="margin-top: 1%;">Preferred Pronounciation:</p>
                         <mat-radio-group class="example-radio-group" [(ngModel)]="confirmed_Phonetics">
                             <mat-radio-button class="example-radio-button" *ngFor="let phonetics of listOfPhonetics"
-                                [value]="phonetics" color="primary"
-
-                                (change)="change($event)">
+                                [value]="phonetics" color="primary" (change)="change($event)">
 
                                 {{phonetics}}
                             </mat-radio-button>
@@ -89,14 +91,14 @@
                     <div style="display: flex; margin-top: 3%;">
                         <ng-template [ngIf]="display_edit_search_bar === true">
                             <mat-form-field class="example-full-width">
-                                <input matInput placeholder="Enter phonetics"
-                                    [(ngModel)]="edited_phonetics" (input)="sendTheNewValue($event)">
+                                <input matInput placeholder="Enter phonetics" [(ngModel)]="edited_phonetics"
+                                    (input)="sendTheNewValue($event)">
                             </mat-form-field>
                         </ng-template>
-                            <span
-                                [ngClass]="{'conditional-button-class-1': display_edit_search_bar === false, 'conditional-button-class-2': display_edit_search_bar === true}">
-                               <ng-template [ngIf]="show_edit_button === true">
-                                    <button mat-raised-button matTooltipPosition="above" [disabled] = "edit_button_flag"
+                        <span
+                            [ngClass]="{'conditional-button-class-1': display_edit_search_bar === false, 'conditional-button-class-2': display_edit_search_bar === true}">
+                            <ng-template [ngIf]="show_edit_button === true">
+                                <button mat-raised-button matTooltipPosition="above" [disabled]="edit_button_flag"
                                     matTooltip="Manually enter the Phonetics" class="edit-button" type="submit"
                                     (click)="handleUserAction('edit','')">
                                     <span><mat-icon class="decision-icon">edit</mat-icon></span>
@@ -104,20 +106,21 @@
                             </ng-template>
 
                             <ng-template [ngIf]="play_audio_button === true">
-                                <button mat-raised-button matTooltipPosition="above" [disabled] = "play_audio_button_flag"
-                                matTooltip="Play Audio" class="edit-button" type="submit" style="background: #4997d0;"
-                                (click)="playAudio()">
-                                <span><mat-icon class="decision-icon">play_arrow</mat-icon></span>
-                            </button>
-                        </ng-template>
-                              <ng-template [ngIf]="show_save_button === true">
-                                <button mat-raised-button matTooltipPosition="above" matTooltip="Save" [disabled] = "save_button_flag"
-                                    class="save-button" type="submit" (click)="handleUserAction('save','')">
+                                <button mat-raised-button matTooltipPosition="above" [disabled]="play_audio_button_flag"
+                                    matTooltip="Play Audio" class="edit-button" type="submit"
+                                    style="background: #4997d0;" (click)="playAudio()">
+                                    <span><mat-icon class="decision-icon">play_arrow</mat-icon></span>
+                                </button>
+                            </ng-template>
+                            <ng-template [ngIf]="show_save_button === true">
+                                <button mat-raised-button matTooltipPosition="above" matTooltip="Save"
+                                    [disabled]="save_button_flag" class="save-button" type="submit"
+                                    (click)="handleUserAction('save','')">
                                     <span><mat-icon class="decision-icon">save</mat-icon></span>
                                 </button>
                             </ng-template>
 
-                            </span>
+                        </span>
                     </div>
                     <ng-template [ngIf]="feedbackFlag === true">
                         <div class="condition">
@@ -125,12 +128,12 @@
                                 Are you satisfied with the displayed Phonetics ?
                             </div>
                             <div>
-                                <span><button class="decision-button correct" mat-raised-button matTooltip="Like" [disabled] = "like_button_flag"
-                                        matTooltipPosition="above"
+                                <span><button class="decision-button correct" mat-raised-button matTooltip="Like"
+                                        [disabled]="like_button_flag" matTooltipPosition="above"
                                         (click)="handleUserAction('phonetics-correct', '')"><mat-icon
                                             class="decision-icon">thumb_up</mat-icon></button></span>
-                                <span><button class="decision-button wrong" mat-raised-button matTooltip="Dislike" [disabled] = "dislike_button_flag"
-                                        matTooltipPosition="above"
+                                <span><button class="decision-button wrong" mat-raised-button matTooltip="Dislike"
+                                        [disabled]="dislike_button_flag" matTooltipPosition="above"
                                         (click)="handleUserAction('phonetics-wrong','' )"><mat-icon
                                             class="decision-icon">thumb_down</mat-icon></button></span>
                             </div>
@@ -151,12 +154,12 @@
                         <p>Last Name: {{this.last_name}}</p>
                         <p>Phonetics: {{this.phonetics_selection}}</p>
                         <ng-template [ngIf]="play_audio_button === true">
-                            <button mat-raised-button matTooltipPosition="above" [disabled] = "play_audio_button_flag"
-                            matTooltip="Play Audio" class="edit-button" type="submit" style="background: #4997d0; margin-left: 15%;"
-                            (click)="playAudio()">
-                            <span><mat-icon class="decision-icon">play_arrow</mat-icon></span>
-                        </button>
-                    </ng-template>
+                            <button mat-raised-button matTooltipPosition="above" [disabled]="play_audio_button_flag"
+                                matTooltip="Play Audio" class="edit-button" type="submit"
+                                style="background: #4997d0; margin-left: 15%;" (click)="playAudio()">
+                                <span><mat-icon class="decision-icon">play_arrow</mat-icon></span>
+                            </button>
+                        </ng-template>
                     </div>
                 </mat-card>
             </div>
@@ -164,8 +167,15 @@
     </div>
     <footer>
         <div class="footer-div">
-            <p class="footer-content">Copyright &copy;2023 SayMyName; Loyalist College, Belleville, Canada. All rights
-                reserved.</p>
+            <span>
+                <a href="https://loyalistcollege.com/" target="_blank">
+                    <img src="assets/images/LoyalistCollegeLogoWhite.png" alt="Loyalist Logo" width="61" height="30"
+                        style="min-height: 30px; width: 61px; vertical-align: middle !important; margin-left: 11px; padding-bottom: 6px;">
+                </a>
+            </span>
+            <span class="footer-content">Copyright &copy;2023 SayMyName; Loyalist College, Belleville, Canada. All
+                rights
+                reserved.</span>
         </div>
     </footer>
 </div>
