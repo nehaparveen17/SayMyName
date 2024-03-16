@@ -3,6 +3,9 @@
         <span class="title main">
             Say My Name
         </span>
+        <span>
+            <img src="/SayMyNameProjectFrontend/src/assets/images/LoyalistCollegeLogo.png" alt="Loyalist Logo" width="500" height="500" style="min-height: 50px; width: 500px;">
+        </span> 
     </div>
    
     <div class="content">
@@ -20,7 +23,7 @@
                 </div>
                 <mat-form-field class="pronoun-dropdown"  matTooltip="Enter pronoun"
                 matTooltipPosition="below">
-                    <mat-select placeholder="Select Pronoun" [(ngModel)]="student_pronoun">
+                    <mat-select placeholder="Select Pronoun" [(ngModel)]="student_pronoun" (selectionChange)="pronounChanged($event)">
                         <mat-option *ngFor="let pronoun of listOfPronouns" [value]="pronoun.value">
                             {{ pronoun.viewValue }}
                         </mat-option>
@@ -57,18 +60,20 @@
                 <span>View & Edit</span>
             </button>
 
-            <button mat-raised-button matTooltipPosition="above" matTooltip="Delete record"
+            <!-- <button mat-raised-button matTooltipPosition="above" matTooltip="Delete record"
 
             class="delete-button" type="submit" (click)="handleUserAction('delete','')">
             <span>Delete</span>
-        </button>
+        </button> -->
 
             </div>
         </span>
         <ng-template [ngIf]="display_content_card === true">
             <div class="content-card">
                 <mat-card class="example-card">
-                    <p style="margin-top: 1%;">Pronounciation of {{this.student_Name}} having a student id {{this.student_ID}}</p>
+                    <p style="margin-top: 1%;">Student ID: {{this.student_ID}}<span style="padding-left: 157px; vertical-align: middle !important; font-size: 11px;"><a href="" matTooltipPosition="above"
+                        matTooltip="Preferred Name: Elizabeth   Phonetics: ih-liz-uh-buhth" style="cursor: pointer;" matTooltipClass="my-tooltip">Sample Phonetics</a></span></p>
+                    <p style="margin-top: 0.5%;">Preferred Name: {{this.student_Name}}</p>
                     <span style="display: flex;">
                         <p style="margin-top: 1%;">Preferred Pronounciation:</p>
                         <mat-radio-group class="example-radio-group" [(ngModel)]="confirmed_Phonetics">
@@ -108,7 +113,7 @@
                               <ng-template [ngIf]="show_save_button === true">
                                 <button mat-raised-button matTooltipPosition="above" matTooltip="Save" [disabled] = "save_button_flag"
                                     class="save-button" type="submit" (click)="handleUserAction('save','')">
-                                    <span><mat-icon class="decision-icon">save_alt</mat-icon></span>
+                                    <span><mat-icon class="decision-icon">save</mat-icon></span>
                                 </button>
                             </ng-template>
 
@@ -117,7 +122,7 @@
                     <ng-template [ngIf]="feedbackFlag === true">
                         <div class="condition">
                             <div class="text">
-                                Please leave us a Feedback.
+                                Are you satisfied with the displayed Phonetics ?
                             </div>
                             <div>
                                 <span><button class="decision-button correct" mat-raised-button matTooltip="Like" [disabled] = "like_button_flag"

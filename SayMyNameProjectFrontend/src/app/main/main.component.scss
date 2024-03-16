@@ -27,10 +27,11 @@
         .main {
             text-transform: uppercase;
             background-image: linear-gradient(-225deg,
-                    #231557 0%,
-                    #44107a 29%,
-                    #ff1361 67%,
-                    #fff800 100%);
+                    #f42153 0%,
+                    #f5406b 29%,
+                    #f76084 67%,
+                    #f8809c 100%,
+                    #fa9fb5 100%);
             background-size: auto auto;
             background-clip: border-box;
             background-size: 200% auto;
@@ -42,7 +43,8 @@
             animation: textclip 3s linear infinite;
             display: inline-block;
             font-size: 25px;
-
+            font-family: Bahnschrift, 'Segoe UI', 'Segoe UI Web (West European)', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', sans-serif;
+            font-weight: 400;
         }
 
         @keyframes textclip {
@@ -60,21 +62,25 @@
     .content {
         .main-content {
             padding-top: 8%;
-            padding-left: 12%;
+            padding-left: 14%;
             font-size: 41px;
             color: #fff;
             font-weight: 300;
-            letter-spacing: 3px;
+            letter-spacing: 2px;
             text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 
             .content-text-1 {
                 padding-bottom: 27px;
+                font-family: Bahnschrift, 'Segoe UI', 'Segoe UI Web (West European)', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', sans-serif;
+                font-weight: 400;
             }
 
             .content-text-2 {
                 padding-left: 29%;
                 font-size: 24px;
                 padding-bottom: 10px;
+                font-family: Bahnschrift, 'Segoe UI', 'Segoe UI Web (West European)', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', sans-serif;
+                font-weight: 400;
             }
         }
 
@@ -88,7 +94,7 @@
             .example-card {
                 position: relative;
                 width: 55%;
-                box-shadow: 8px 8px #cac7ff;
+                box-shadow: 8px 8px #549aee;
                 padding: 8px 20px;
                 border-radius: 5px 15px;
 
@@ -246,9 +252,10 @@
         outline: none;
         padding: 11px 20px;
         font-size: 17px;
-        color: #cac7ff;
         width: 1%;
-
+        color: #fff;
+        font-family: Bahnschrift, 'Segoe UI', 'Segoe UI Web (West European)', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', sans-serif;
+        font-weight: 400;
     }
 
     .example-form {
@@ -315,7 +322,9 @@
         outline: none;
         padding: 11px 5px;
         font-size: 17px;
-        color: #cac7ff;
+        color: #fff;
+        font-family: Bahnschrift, 'Segoe UI', 'Segoe UI Web (West European)', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', sans-serif;
+        font-weight: 400;
         width: 2%;
         text-overflow: ellipsis;
     }
@@ -352,13 +361,28 @@
         width: 14%;
     }
 
+    ::ng-deep .pronoun-dropdown.mat-mdc-select {
+        color: #fff !important;
+        font-family: Bahnschrift, 'Segoe UI', 'Segoe UI Web (West European)', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', sans-serif !important;
+        font-weight: 400 !important;
+    }
+
+    ::ng-deep.pronoun-dropdown .mat-mdc-select-placeholder {
+        font-family: Bahnschrift, 'Segoe UI', 'Segoe UI Web (West European)', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', sans-serif !important;
+        font-weight: 400 !important;
+        color: #fff !important;
+    }
+
     ::ng-deep .pronoun-dropdown.mat-mdc-form-field-type-mat-select:not(.mat-form-field-disabled) .mat-mdc-text-field-wrapper {
         border-radius: 60px;
         padding: 0px 20px;
         // background: #cac7ff;
         backdrop-filter: blur(4px) saturate(180%);
-        background: #cac7ff;
+        background: #4e9cfa;
         outline: none;
+        color: #fff !important;
+        font-family: Bahnschrift, 'Segoe UI', 'Segoe UI Web (West European)', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', sans-serif !important;
+        font-weight: 400 !important;
         // backdrop-filter: blur(4px) saturate(180%);
 
     }
@@ -367,12 +391,12 @@
         padding: 0px 20px;
         // background: #cac7ff;
         backdrop-filter: blur(4px) saturate(180%);
-        background: #cac7ff;
+        background: transparent;
         outline: none;
     }
 
     ::placeholder {
-        color: #cac7ff;
+        color: #fff;
     }
 
     // .search-bar button mat-icon {
@@ -391,10 +415,21 @@
         border-radius: 60px;
         width: 5%;
         height: 44px;
-        background: #cac7ff;
+        background: transparent;
         cursor: pointer;
         margin-left: 0.5%;
         margin-top: 1%;
+        font-family: Bahnschrift, 'Segoe UI', 'Segoe UI Web (West European)', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', sans-serif;
+        font-weight: 400;
+        color: #fff;
+    }
+
+    .view-edit-button:hover {
+        background: #f42153 !important;
+    }
+
+    .delete-button:hover {
+        background: transparent !important;
     }
 
     .view-edit-button {
@@ -402,10 +437,13 @@
         border-radius: 60px;
         width: 8%;
         height: 44px;
-        background: #cac7ff;
+        background: transparent;
         cursor: pointer;
         margin-left: 0.5%;
         margin-top: 1%;
+        font-family: Bahnschrift, 'Segoe UI', 'Segoe UI Web (West European)', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', sans-serif;
+        font-weight: 400;
+        color: #fff;
     }
 
     .delete-button {
@@ -413,10 +451,13 @@
         border-radius: 60px;
         width: 5%;
         height: 44px;
-        background: #cac7ff;
+        background: #f42153;
         cursor: pointer;
         margin-left: 0.5%;
         margin-top: 1%;
+        font-family: Bahnschrift, 'Segoe UI', 'Segoe UI Web (West European)', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', sans-serif;
+        font-weight: 400;
+        color: #fff;
     }
 
 
@@ -444,7 +485,7 @@
     }
 
     .submit-button:hover {
-        background: transparent !important;
+        background: #f42153 !important;
     }
 
     .input-hint {
@@ -455,7 +496,7 @@
     }
 
     .final-text {
-        padding-top: 20px;
+        padding-top: 7px;
     }
 
     .footer-div {
@@ -482,5 +523,9 @@
 
     .conditional-button-class-2 {
         display: contents;
+    }
+
+    .my-tooltip {
+        white-space: pre-line;
     }
 }

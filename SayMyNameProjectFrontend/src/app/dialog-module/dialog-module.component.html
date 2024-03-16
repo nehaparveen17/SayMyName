@@ -1,5 +1,5 @@
 <ng-template [ngIf]="data?.flag === 'view-dialog'">
-  <h2 mat-dialog-title style="background-color: #cac7ff; font-size: 17px;">Confirmation Details</h2> 
+  <h2 mat-dialog-title style="background-color: #549aee; font-size: 17px; color: #fff;">Confirmation Details</h2> 
 <div mat-dialog-content> 
   <p>Student ID: {{data?.studentId}}</p>
   <p>Preferred Name: {{data?.preferredName}}</p> 
@@ -12,13 +12,45 @@
 </ng-template>
 
 <ng-template [ngIf]="data?.flag === 'delete-dialog'">
-  <h2 mat-dialog-title style="background-color: #cac7ff; font-size: 17px;">Delete Record</h2> 
+  <h2 mat-dialog-title style="background-color: #549aee; font-size: 17px; color: #fff;">Delete Record</h2> 
 <div mat-dialog-content> 
   <p>Are you sure you want to delete ?</p>
 </div> 
 <div mat-dialog-actions> 
   <button mat-button [mat-dialog-close]="'Yes'"  
              cdkFocusInitial style="margin-left: 60%;">Delete</button> 
+             <button mat-button [mat-dialog-close]="'No'"  
+             cdkFocusInitial>Back</button> 
+</div>
+</ng-template>
+
+<ng-template [ngIf]="data?.flag === 'pronoun-dialog'">
+  <h2 mat-dialog-title style="background-color: #549aee; font-size: 17px; color: #fff;">Enter Pronoun</h2> 
+<div mat-dialog-content> 
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Enter Pronoun"
+        [(ngModel)]="enteredPronoun">
+</mat-form-field>
+</div> 
+<div mat-dialog-actions> 
+  <button mat-button [mat-dialog-close]="enteredPronoun"  
+             cdkFocusInitial style="margin-left: 56%;">Confirm</button> 
+             <button mat-button [mat-dialog-close]="'No'"  
+             cdkFocusInitial>Back</button> 
+</div>
+</ng-template>
+
+<ng-template [ngIf]="data?.flag === 'pronoun-dialog-from-edit-view'">
+  <h2 mat-dialog-title style="background-color: #549aee; font-size: 17px; color: #fff;">Enter Pronoun</h2> 
+<div mat-dialog-content> 
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Enter Pronoun"
+        [(ngModel)]="enteredPronounFromEdit">
+</mat-form-field>
+</div> 
+<div mat-dialog-actions> 
+  <button mat-button [mat-dialog-close]="enteredPronounFromEdit"  
+             cdkFocusInitial style="margin-left: 56%;">Confirm</button> 
              <button mat-button [mat-dialog-close]="'No'"  
              cdkFocusInitial>Back</button> 
 </div>

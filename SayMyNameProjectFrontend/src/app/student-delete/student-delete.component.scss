@@ -27,10 +27,11 @@
         .main {
             text-transform: uppercase;
             background-image: linear-gradient(-225deg,
-                    #231557 0%,
-                    #44107a 29%,
-                    #ff1361 67%,
-                    #fff800 100%);
+            #f42153 0%,
+            #f5406b 29%,
+            #f76084 67%,
+            #f8809c 100%,
+            #fa9fb5 100%);
             background-size: auto auto;
             background-clip: border-box;
             background-size: 200% auto;
@@ -42,6 +43,8 @@
             animation: textclip 3s linear infinite;
             display: inline-block;
             font-size: 25px;
+            font-family: Bahnschrift, 'Segoe UI', 'Segoe UI Web (West European)', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', sans-serif;
+            font-weight: 400;
 
         }
 
@@ -65,35 +68,37 @@
         .example-card {
             position: relative;
             width: 55%;
-            box-shadow: 8px 8px #cac7ff;
+            box-shadow: 8px 8px #549aee;
             padding: 8px 20px;
             border-radius: 5px 15px;  
 
         }
-     
-
-
-
         }
 
     .content {
         .main-content {
             padding-top: 8%;
-            padding-left: 12%;
+            padding-left: 14%;
             font-size: 41px;
             color: #fff;
             font-weight: 300;
-            letter-spacing: 3px;
+            letter-spacing: 2px;
             text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 
             .content-text-1 {
                 padding-bottom: 27px;
+                color: #fff;
+                font-family: Bahnschrift, 'Segoe UI', 'Segoe UI Web (West European)', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', sans-serif;
+                font-weight: 400;
             }
 
             .content-text-2 {
                 padding-left: 29%;
                 font-size: 24px;
                 padding-bottom: 10px;
+                color: #fff;
+                font-family: Bahnschrift, 'Segoe UI', 'Segoe UI Web (West European)', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', sans-serif;
+                font-weight: 400;
             }
         }
 
@@ -106,9 +111,10 @@
         outline: none;
         padding: 11px 20px;
         font-size: 17px;
-        color: #cac7ff;
         width: 1%;
-
+        color: #fff;
+        font-family: Bahnschrift, 'Segoe UI', 'Segoe UI Web (West European)', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', sans-serif;
+        font-weight: 400;
     }
 
    
@@ -121,14 +127,16 @@
         outline: none;
         padding: 11px 5px;
         font-size: 17px;
-        color: #cac7ff;
         width: 2%;
         text-overflow: ellipsis;
+        color: #fff;
+        font-family: Bahnschrift, 'Segoe UI', 'Segoe UI Web (West European)', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', sans-serif;
+        font-weight: 400;
     }
 
    
     ::placeholder {
-        color: #cac7ff;
+        color: #fff;
     }
 
     .search-conatiner {
@@ -168,10 +176,13 @@
         border-radius: 60px;
         width: 1% !important;
         height: 44px;
-        background: #cac7ff;
+        background: #f42153;
         cursor: pointer;
         margin-left: 3.5%;
         margin-top: 1%;
+        color: #fff;
+        font-family: Bahnschrift, 'Segoe UI', 'Segoe UI Web (West European)', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', sans-serif;
+        font-weight: 400;
     }
     .search-button:hover {
         background: transparent !important;

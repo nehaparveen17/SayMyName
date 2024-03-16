@@ -4,6 +4,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Router } from '@angular/router';
+import {MatSelectChange} from '@angular/material/select';
+import { DialogModuleComponent } from '../dialog-module/dialog-module.component';
 
 @Component({
   selector: 'app-student-edit-view',
@@ -30,11 +32,12 @@ export class StudentEditViewComponent {
   public view_pronoun_flag: boolean = false;
   public edited_pronoun: any = undefined;
   public update_button_flag: boolean = true;
-  public lastOfPronouns = [
+  public listOfPronouns = [
     { value: '01', viewValue: 'She / Her' },
     { value: '02', viewValue: 'He / Him' },
     { value: '03', viewValue: 'They / Them' },
     { value: '04', viewValue: 'Prefer Not to Say' },
+    { value: '05', viewValue: 'Not included in the list' },
   ];
 
   constructor(
@@ -47,6 +50,36 @@ export class StudentEditViewComponent {
 
   ngOnInit(): void {
 
+  }
+
+  pronounChanged = (event: MatSelectChange) => {
+    this.update_button_flag = false
+    if (event?.value === 'Not included in the list') {
+      this.openDialogForPronoun()
+    }
+  }
+
+  openDialogForPronoun(): void {
+    let dialogRef = this.dialog.open(DialogModuleComponent, {
+      width: '30%',
+      data: { flag: "pronoun-dialog-from-edit-view" }
+    });
+    this.listOfPronouns = this.listOfPronouns.filter((ele: any) => {
+      return ele?.value !== 'userAdded'
+    })
+    dialogRef.afterClosed().subscribe(result => {
+      if(result === 'No'){
+        this.edited_pronoun = ''
+       }
+       else {
+        this.listOfPronouns.push({ value: 'userAdded', viewValue: result })
+        this.listOfPronouns.forEach((ele:any) => {
+          if(ele?.value === 'userAdded'){
+            this.edited_pronoun = ele?.viewValue
+          }
+        })
+       } 
+    });
   }
 
   redirect = () => {
@@ -115,9 +148,9 @@ export class StudentEditViewComponent {
     }
   }
 
-  change(event: any) {
-    this.update_button_flag = false
-  }
+  // change(event: any) {
+  //   this.update_button_flag = false
+  // }
 
   sendTheNewFirstNameValue(event: any) {
     let value: any
@@ -232,6 +265,9 @@ export class StudentEditViewComponent {
         this.displayMessage(data?.message, 'SUCCESS');
         this.student_id = "";
         this.display_content_card = false;
+        this.listOfPronouns = this.listOfPronouns.filter((ele: any) => {
+          return ele?.value !== 'userAdded'
+        })
         setTimeout(() => {
           window.location.reload()
         }, 4000);
