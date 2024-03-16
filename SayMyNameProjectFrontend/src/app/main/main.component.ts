@@ -10,6 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogModuleComponent } from '../dialog-module/dialog-module.component';
 import { Router } from '@angular/router';
 import { MatRadioChange } from '@angular/material/radio';
+import {MatSelectChange} from '@angular/material/select';
 
 @Component({
   selector: 'app-main',
@@ -52,6 +53,7 @@ export class MainComponent {
     { value: '02', viewValue: 'He / Him' },
     { value: '03', viewValue: 'They / Them' },
     { value: '04', viewValue: 'Prefer Not to Say' },
+    { value: '05', viewValue: 'Not included in the list' },
   ];
 
   public listOfIntake = [
@@ -99,7 +101,18 @@ export class MainComponent {
 
   }
 
-
+  pronounChanged = (event: MatSelectChange) => {
+    console.log(event?.value)
+    let pronoun = ''
+    this.listOfPronouns.forEach((ele: any) => {
+      if (ele?.value === event?.value) {
+        pronoun = ele?.viewValue
+      }
+    })
+    if (pronoun === 'Not included in the list') {
+      this.openDialogForPronoun()
+    }
+  }
 
   openDialog(): void {
     let dialogRef = this.dialog.open(DialogModuleComponent, {
@@ -109,6 +122,29 @@ export class MainComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       this.feedbackFlag = true;
+    });
+  }
+
+  openDialogForPronoun(): void {
+    let dialogRef = this.dialog.open(DialogModuleComponent, {
+      width: '30%',
+      data: { flag: "pronoun-dialog" }
+    });
+    this.listOfPronouns = this.listOfPronouns.filter((ele: any) => {
+      return ele?.value !== 'userAdded'
+    })
+    dialogRef.afterClosed().subscribe(result => {
+      if(result === 'No'){
+        this.student_pronoun = ''
+       }
+       else {
+        this.listOfPronouns.push({ value: 'userAdded', viewValue: result })
+        this.listOfPronouns.forEach((ele:any) => {
+          if(ele?.value === 'userAdded'){
+            this.student_pronoun = ele?.value
+          }
+        })
+       } 
     });
   }
 
@@ -427,6 +463,9 @@ export class MainComponent {
         this.displayMessage('Feedback Captured', 'SUCCESS')
         this.like_button_flag = true
         this.dislike_button_flag = true
+        this.listOfPronouns = this.listOfPronouns.filter((ele: any) => {
+          return ele?.value !== 'userAdded'
+        })
         setTimeout(() => {
           window.location.reload()
         }, 5000);

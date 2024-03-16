@@ -7,6 +7,10 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
   styleUrls: ['./dialog-module.component.scss']
 })
 export class DialogModuleComponent {
+
+  public enteredPronoun: string = ''
+  public enteredPronounFromEdit: string = ''
+  
   constructor(
     public dialogRef: MatDialogRef<DialogModuleComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) { }

@@ -35,18 +35,24 @@
             <div class="content-card">
                 <mat-card class="example-card">
                     <div style="margin-bottom: 1%; margin-top: 0.5%;">
-                        <p style="margin-bottom: 2% !important;">Student ID: {{this.student_id}}
-                        <p style="margin-bottom: 2% !important;">Pronoun: {{this.pronoun}}<ng-template  [ngIf]="view_pronoun_flag === false"><button class="edit-button" (click)="handleUserAction('edit_pronoun','')"><mat-icon>edit</mat-icon></button></ng-template>
+                        <p style="margin-bottom: 2% !important; 
+                        font-family: Bahnschrift, 'Segoe UI', 'Segoe UI Web (West European)', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', sans-serif;
+                        font-weight: 400;">Student ID: {{this.student_id}}
+                        <p style="margin-bottom: 2% !important; 
+                        font-family: Bahnschrift, 'Segoe UI', 'Segoe UI Web (West European)', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', sans-serif;
+                        font-weight: 400;">Pronoun: {{this.pronoun}}<ng-template  [ngIf]="view_pronoun_flag === false"><button class="edit-button" (click)="handleUserAction('edit_pronoun','')"><mat-icon>edit</mat-icon></button></ng-template>
                         <ng-template [ngIf]="view_pronoun_flag === true">
                             <mat-form-field class="example-full-width">
-                                <mat-select placeholder="Select pronoun" [(ngModel)]="edited_pronoun">
-                                  <mat-option *ngFor="let pronoun of lastOfPronouns" [value]="pronoun.viewValue" (onSelectionChange)="change($event)">
+                                <mat-select placeholder="Select pronoun" [(ngModel)]="edited_pronoun" (selectionChange)="pronounChanged($event)">
+                                  <mat-option *ngFor="let pronoun of listOfPronouns" [value]="pronoun.viewValue">
                                     {{ pronoun.viewValue }}
                                   </mat-option>
                                 </mat-select>
                               </mat-form-field>
                         </ng-template></p>
-                        <p style="margin-bottom: 2% !important;">First Name: {{this.firstName}}
+                        <p style="margin-bottom: 2% !important;
+                        font-family: Bahnschrift, 'Segoe UI', 'Segoe UI Web (West European)', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', sans-serif;
+                        font-weight: 400;">First Name: {{this.firstName}}
                             <ng-template  [ngIf]="view_first_name_flag === false"><button class="edit-button" (click)="handleUserAction('edit_first_name','')"><mat-icon>edit</mat-icon></button></ng-template>
                         <ng-template [ngIf]="view_first_name_flag === true">
                             <mat-form-field class="example-full-width">
@@ -54,21 +60,27 @@
                                     [(ngModel)]="edited_first_name" (input)="sendTheNewFirstNameValue($event)">
                             </mat-form-field>
                         </ng-template></p>
-                        <p style="margin-bottom: 2% !important;">Last Name: {{this.lastName}}<ng-template  [ngIf]="view_last_name_flag === false"><button class="edit-button" (click)="handleUserAction('edit_last_name','')"><mat-icon>edit</mat-icon></button></ng-template>
+                        <p style="margin-bottom: 2% !important; 
+                        font-family: Bahnschrift, 'Segoe UI', 'Segoe UI Web (West European)', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', sans-serif;
+                        font-weight: 400;">Last Name: {{this.lastName}}<ng-template  [ngIf]="view_last_name_flag === false"><button class="edit-button" (click)="handleUserAction('edit_last_name','')"><mat-icon>edit</mat-icon></button></ng-template>
                             <ng-template [ngIf]="view_last_name_flag === true">
                                 <mat-form-field class="example-full-width">
                                     <input matInput placeholder="Enter last name"
                                         [(ngModel)]="edited_last_name" (input)="sendTheNewLastNameValue($event)">
                                 </mat-form-field>
                             </ng-template></p>
-                        <p style="margin-bottom: 2% !important;">Preferred Name: {{this.preferredName}}<ng-template  [ngIf]="view_preferred_name_flag === false"><button class="edit-button" (click)="handleUserAction('edit_preferred_name','')"><mat-icon>edit</mat-icon></button></ng-template>
+                        <p style="margin-bottom: 2% !important; 
+                        font-family: Bahnschrift, 'Segoe UI', 'Segoe UI Web (West European)', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', sans-serif;
+                        font-weight: 400;">Preferred Name: {{this.preferredName}}<ng-template  [ngIf]="view_preferred_name_flag === false"><button class="edit-button" (click)="handleUserAction('edit_preferred_name','')"><mat-icon>edit</mat-icon></button></ng-template>
                             <ng-template [ngIf]="view_preferred_name_flag === true">
                                 <mat-form-field class="example-full-width">
                                     <input matInput placeholder="Enter preferred name"
                                         [(ngModel)]="edited_preferred_name" (input)="sendTheNewPreferredNameValue($event)">
                                 </mat-form-field>
                             </ng-template></p>
-                        <p style="margin-bottom: 0% !important;">Phonetics: {{this.phoneticSelection}}<ng-template  [ngIf]="view_phonetics_flag === false"><button class="edit-button" (click)="handleUserAction('edit_phonetics','')"><mat-icon>edit</mat-icon></button></ng-template>
+                        <p style="margin-bottom: 0% !important;
+                        font-family: Bahnschrift, 'Segoe UI', 'Segoe UI Web (West European)', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', sans-serif;
+                        font-weight: 400;">Phonetics: {{this.phoneticSelection}}<ng-template  [ngIf]="view_phonetics_flag === false"><button class="edit-button" (click)="handleUserAction('edit_phonetics','')"><mat-icon>edit</mat-icon></button></ng-template>
                             <ng-template [ngIf]="view_phonetics_flag === true">
                                 <mat-form-field class="example-full-width">
                                     <input matInput placeholder="Enter Phonetics"
