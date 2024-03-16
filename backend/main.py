@@ -96,7 +96,25 @@ async def tt_speech(details:p_model_type.Post, db: Session= Depends(get_db)):
     split_first_name = Splitword().seperating_name(first_name=new_dict["preferred_name"])
 
     preferred_phonetics = [x.phonetics for x in phonetics_data]
-    preferred_phonetics.append(split_first_name[0])
+
+    for pname in split_first_name:
+        preferred_phonetics.append(pname)
+
+    name_list = new_student_details.preferred_name.lower().split(",")
+    #calling DB to get data
+    results = db.query(models.Votes).filter(models.Votes.name.in_(name_list)).order_by(models.Votes.votes.desc()).limit(3).all()
+
+    ordered_phonetics = []
+
+    for x in results:
+        ordered_phonetics.append(x.phonetic)
+    ordered_phonetics.extend(preferred_phonetics)
+    
+    recommened_phonetics = []
+
+    for x in ordered_phonetics:
+        if x not in recommened_phonetics:
+            recommened_phonetics.append(x)
 
 
     pro_data = {
@@ -107,14 +125,9 @@ async def tt_speech(details:p_model_type.Post, db: Session= Depends(get_db)):
     "preferred_name": new_student_details.preferred_name.lower(),
     "audio_binary": new_student_details.audio_binary,
     "pronoun": new_student_details.pronoun,
-    "phonetics": preferred_phonetics
+    "phonetics": recommened_phonetics
     }
 
-
-    name_list = pro_data["preferred_name"].split(",")
-
-#calling DB to get data
-    results = db.query(models.Votes).filter(models.Votes.name.in_(name_list)).order_by(models.Votes.votes.desc()).limit(3).all()
 
     if len(results) == 0:
         pro_data["data_in_votes_table"] = False
@@ -123,7 +136,7 @@ async def tt_speech(details:p_model_type.Post, db: Session= Depends(get_db)):
 
 
     return {"data": pro_data,
-            "results": results,
+            "results": [],
             "status":'success',
             "message":''}
 
