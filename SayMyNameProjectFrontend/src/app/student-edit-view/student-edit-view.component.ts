@@ -160,8 +160,15 @@ export class StudentEditViewComponent {
       this.update_button_flag = true
     }
     else {
-      emp = value
-      this.update_button_flag = false
+      if(/^[a-zA-Z ]*$/.test(value)) {
+        emp = value
+        this.update_button_flag = false
+      }
+      else {
+        this.displayMessage('First Name can only contain lower and uppercase alphabets including space.', 'ERROR');
+        this.update_button_flag = true
+      }
+      
     }
 
   }
@@ -175,8 +182,14 @@ export class StudentEditViewComponent {
       this.update_button_flag = true
     }
     else {
-      emp = value
-      this.update_button_flag = false
+      if(/^[a-zA-Z ]*$/.test(value)) {
+        emp = value
+        this.update_button_flag = false
+      }
+      else {
+        this.displayMessage('Last Name can only contain lower and uppercase alphabets including space.', 'ERROR');
+        this.update_button_flag = true
+      }
     }
   }
 
@@ -189,8 +202,14 @@ export class StudentEditViewComponent {
       this.update_button_flag = true
     }
     else {
-      emp = value
-      this.update_button_flag = false
+      if(/^[a-zA-Z ]*$/.test(value)) {
+        emp = value
+        this.update_button_flag = false
+      }
+      else {
+        this.displayMessage('Preferred Name can only contain lower and uppercase alphabets including space.', 'ERROR');
+        this.update_button_flag = true
+      }
     }
   }
 
@@ -204,9 +223,17 @@ export class StudentEditViewComponent {
       this.play_audio_button_flag = true;
     }
     else {
-      emp = value
-      this.update_button_flag = false;
-      this.play_audio_button_flag = false;
+      if(/^[a-zA-Z -]*$/.test(value)) {
+        emp = value
+        this.update_button_flag = false;
+        this.play_audio_button_flag = false;
+      }
+      else {
+        this.displayMessage('Phonetic Name can only contain lower and uppercase alphabets including space and hyphen.', 'ERROR');
+        this.update_button_flag = true;
+        this.play_audio_button_flag = true;
+      }
+     
     }
     this.get_audio_for_phonetics = value;
   }
