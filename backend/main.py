@@ -12,6 +12,7 @@ from sqlalchemy import exc
 from fastapi.responses import StreamingResponse
 import io
 import os
+from deletescript import delete_incomplete_records
 
 from dotenv import load_dotenv
 from fastapi.middleware.cors import CORSMiddleware
@@ -31,6 +32,8 @@ def get_db():
         yield db
     finally:
         db.close()
+
+
 
 
 app = FastAPI()
@@ -133,6 +136,7 @@ async def tt_speech(details:p_model_type.Post, db: Session= Depends(get_db)):
         pro_data["data_in_votes_table"] = False
     elif len(results)>0:
         pro_data["data_in_votes_table"] = True
+    delete_incomplete_records()
 
 
     return {"data": pro_data,
@@ -230,7 +234,7 @@ async def selection(details:p_model_type.Selection, db: Session= Depends(get_db)
 @app.get("/getRecord/", status_code=status.HTTP_200_OK)
 async def get_students(studentID: str = None, db: Session= Depends(get_db)):
 
-
+    delete_incomplete_records()
 #calling DB to get details
     query =(
     db.query(models.Student_data.student_id, 
