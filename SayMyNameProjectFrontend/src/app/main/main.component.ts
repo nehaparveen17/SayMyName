@@ -203,6 +203,7 @@ export class MainComponent {
       this.play_audio_button = true;
       this.show_save_button = true
       this.get_audio_for_phonetics = event?.value.toLowerCase();
+      this.edited_phonetics = event?.value;
     }
   }
 
@@ -222,7 +223,7 @@ export class MainComponent {
             if (this.student_ID?.length == 9) {
               if (this.student_pronoun !== '') {
                 if (this.student_Name !== '') {
-                  if (/^[a-zA-Z ]*$/.test(this.student_Name)) {
+                  if (/^[a-zA-Z]*$/.test(this.student_Name)) {
                     if (this.first_name !== '') {
                       if (/^[a-zA-Z ]*$/.test(this.first_name)) {
                         let pronoun = ''
@@ -262,7 +263,7 @@ export class MainComponent {
 
                   }
                   else {
-                    this.displayMessage('Preferred Name can only contain lower and uppercase alphabets including space.', 'ERROR')
+                    this.displayMessage('Preferred Name can only contain lower and uppercase alphabets.', 'ERROR')
                   }
                 }
                 else {
