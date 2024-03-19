@@ -482,7 +482,7 @@ export class MainComponent {
         this.save_button_flag = true;
       }
       else {
-        this.displayMessage('Could not process the request', 'ERROR')
+        this.displayMessage('Unable to process the request. Please try again after sometime.', 'ERROR')
         this.ngxService.stop();
       }
     })
