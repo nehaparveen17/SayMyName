@@ -143,7 +143,6 @@ export class StudentEditViewComponent {
           "year": 2023,
           "phonetics_selection": this.edited_phonetics_name || this.phoneticSelection
         }
-        console.log(reqObj)
         this.updateDetails(reqObj);
         break;
       }
@@ -202,7 +201,7 @@ export class StudentEditViewComponent {
       this.update_button_flag = true
     }
     else {
-      if(/^[a-zA-Z ]*$/.test(value)) {
+      if(/^[a-zA-Z]*$/.test(value)) {
         emp = value
         this.update_button_flag = false
       }
