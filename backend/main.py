@@ -47,7 +47,7 @@ origins = ["http://localhost.tiangolo.com",
     "http://app:4200",
     "http://192.168.2.72:4200",
     "http://10.28.5.119:4200",
-    "http://10.28.13.45:4200",
+    "http://10.28.9.191:4200",
     ]
 app.add_middleware(
     CORSMiddleware,
