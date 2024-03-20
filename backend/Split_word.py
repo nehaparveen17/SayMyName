@@ -20,94 +20,22 @@ class Splitword():
         for full_word in full_words:
             final_word = ''.join(full_word)
             lst_final_word.append(final_word)
-        return lst_final_word, out
+        phonetic_spelling = "-".join(lst_final_word)
+        return [phonetic_spelling]
 
-    
-    # def pronouncing_word(self, first_name:str, last_name:str) ->str:
-    def pronouncing_word(self, first_name:str) ->str:
 
-        p_first_name, f_name_num = self.list_of_word(name=first_name)
-        # p_last_name, l_name_num = self.list_of_word(name=last_name)
-
-        return p_first_name, f_name_num
-        return p_first_name, p_last_name, f_name_num, l_name_num
-        # full_words_first = []
-        # full_words_last = []
-        # final_word = ''
-        # lst_final_word = []
-        # list_of_words_first = first_name.lower().split()
-        # list_of_words_last = last_name.lower().split()
-        # g2p = G2p()
-        # for text in list_of_words_first:
-        #     out = g2p(text)
-        #     without_digits = [reduce(lambda x, y: x+y, filter(lambda x: not x.isdigit(), s), '') for s in out]
-        #     full_words_first.append(without_digits)
-
-        # for text in list_of_words_last:
-        #     out = g2p(text)
-        #     without_digits = [reduce(lambda x, y: x+y, filter(lambda x: not x.isdigit(), s), '') for s in out]
-        #     full_words_last.append(without_digits)
-
-        # for full_word in full_words:
-        #     final_word = '-'.join(full_word)
-        #     lst_final_word.append(final_word)
-        # return lst_final_word
-
-    # def Phonetics_eng_words(self, first_name:str, last_name:str):
-    def Phonetics_eng_words(self, first_name:str):
-            first_name_lst = first_name.lower().split()
-            # last_name_lst = last_name.lower().split()
-            legit_word_first = []
-            legit_word_last = []
-
-            for word in first_name_lst:
-                first_name_ip = ipa.convert(word)
-                first_name_special = first_name_ip.replace("*", "")
-                if word != first_name_special:
-                     legit_word_first.append(first_name_ip)
-                else:
-                     legit_word_first.append([])
-                
-            # for word in last_name_lst:
-            #     last_name_ip = ipa.convert(word)
-            #     last_name_special=last_name_ip.replace("*", "")
-            #     if word != last_name_special:
-            #          legit_word_last.append(last_name_ip)
-            #     else:
-            #          legit_word_first.append([])
-            
-            return legit_word_first
-            # return legit_word_first, legit_word_last
-
-# fir, last_ = Splitword().Phonetics_eng_words(first_name="vijay jane", last_name="tomato")
-# print(Splitword().pronouncing_word(first_name="vijay jane", last_name="tomato"))
-
-# print(fir)
-# print(last_)
 
     def split_syllables(self, word) -> list:
         dic = pyphen.Pyphen(lang='en_US')
-        # syllables = dic.inserted(word).split("-")
-        syllables = dic.inserted(word).split()
-        return syllables
+        syllables = dic.inserted(word).split("-")
+        # syllables = dic.inserted(word).split()
+        name = " ".join(syllables)
+        return name
     
-    # def seperating_name(self, first_name:str, last_name:str) -> list:
-    def seperating_name(self, first_name:str) -> list:
-         f_name = first_name.lower().strip().split()
-        #  l_name = last_name.lower().strip().split()
-
-         first_name_split = []
-         last_name_split = []
-         for first in f_name:
-              split_name = self.split_syllables(first)
-              split_name = "".join(split_name)
-              first_name_split.append(split_name)
-        #  for last in l_name:
-        #       split_name = self.split_syllables(last)
-        #       split_name = "-".join(split_name)
-        #       last_name_split.append(split_name)
-        #  return first_name_split, last_name_split
-         return first_name_split
+    def seperating_name(self, word):
+        syllable_split = self.split_syllables(word=word)
+        phonetic_spelling = self.list_of_word(name=syllable_split)
+        return list(phonetic_spelling)
          
 
 
@@ -209,12 +137,6 @@ class Splitword():
                         temp.append(i)
                     if consecutive_letters in digraphs:
                         pass
-
-
-
-                        
-
-
 
 
         else:
