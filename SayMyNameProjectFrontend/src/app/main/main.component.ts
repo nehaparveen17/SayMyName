@@ -101,6 +101,7 @@ export class MainComponent {
 
   }
 
+  //detects if the pronoun is changed
   pronounChanged = (event: MatSelectChange) => {
     console.log(event?.value)
     let pronoun = ''
@@ -125,6 +126,7 @@ export class MainComponent {
     });
   }
 
+  //opens the popup for custom pronnoun
   openDialogForPronoun(): void {
     let dialogRef = this.dialog.open(DialogModuleComponent, {
       width: '30%',
@@ -148,6 +150,7 @@ export class MainComponent {
     });
   }
 
+  //detects the input value
   sendTheNewValue(event: any) {
     this.value = event?.target?.value;
     if (this.value !== '' || this.value !== undefined || this.value !== null) {
@@ -195,9 +198,9 @@ export class MainComponent {
         },
 
       );
-    // delete the above
   }
 
+  //detects the change in the radio button when phonetics is changed
   public change = (event: MatRadioChange) => {
     if (event?.value !== null || event?.value !== undefined || event?.value !== '') {
       this.play_audio_button = true;
@@ -442,6 +445,7 @@ export class MainComponent {
     })
   }
 
+  //API to capture user feedback
   private giveUserFeedback = (reqObj: any) => {
     this.ngxService.start();
     this.httpClient.post('http://10.28.9.191:8081/userfeedback', reqObj).subscribe((data: any) => {
@@ -467,6 +471,7 @@ export class MainComponent {
 
   }
 
+  //API to save the phonetics
   private savePhonetics = (reqObj: any) => {
     this.final_phonetics = reqObj?.phonetics_selection
     this.ngxService.start();
@@ -482,7 +487,7 @@ export class MainComponent {
         this.save_button_flag = true;
       }
       else {
-        this.displayMessage('Could not process the request', 'ERROR')
+        this.displayMessage('Unable to process the request. Please try again after sometime.', 'ERROR')
         this.ngxService.stop();
       }
     })
