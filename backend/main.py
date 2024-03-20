@@ -12,6 +12,7 @@ from sqlalchemy import exc
 from fastapi.responses import StreamingResponse
 import io
 import os
+from deletescript import delete_incomplete_records
 
 from dotenv import load_dotenv
 from fastapi.middleware.cors import CORSMiddleware
@@ -33,6 +34,8 @@ def get_db():
         db.close()
 
 
+
+
 app = FastAPI()
 
 #Add whitelisting ip's below in origins. if an ip is added they will be able to connect to backend current frontend app running in port 4200
@@ -44,7 +47,8 @@ origins = ["http://localhost.tiangolo.com",
     "http://app:4200",
     "http://192.168.2.72:4200",
     "http://10.28.5.119:4200",
-    "http://10.28.11.29:4200"]
+    "http://10.28.13.45:4200",
+    ]
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
@@ -93,7 +97,7 @@ async def tt_speech(details:p_model_type.Post, db: Session= Depends(get_db)):
 
     #logic to get the phonetics from the DB
     phonetics_data = db.query(models.Phonetics).filter(models.Phonetics.names == new_student_details.preferred_name.lower()).all()
-    split_first_name = Splitword().seperating_name(first_name=new_dict["preferred_name"])
+    split_first_name = Splitword().seperating_name(word=new_dict["preferred_name"])
 
     preferred_phonetics = [x.phonetics for x in phonetics_data]
 
@@ -111,6 +115,7 @@ async def tt_speech(details:p_model_type.Post, db: Session= Depends(get_db)):
     ordered_phonetics.extend(preferred_phonetics)
     
     recommened_phonetics = []
+    print(f"recommended_phonetics: {recommened_phonetics}")
 
     for x in ordered_phonetics:
         if x not in recommened_phonetics:
@@ -133,6 +138,7 @@ async def tt_speech(details:p_model_type.Post, db: Session= Depends(get_db)):
         pro_data["data_in_votes_table"] = False
     elif len(results)>0:
         pro_data["data_in_votes_table"] = True
+    delete_incomplete_records()
 
 
     return {"data": pro_data,
@@ -230,7 +236,7 @@ async def selection(details:p_model_type.Selection, db: Session= Depends(get_db)
 @app.get("/getRecord/", status_code=status.HTTP_200_OK)
 async def get_students(studentID: str = None, db: Session= Depends(get_db)):
 
-
+    delete_incomplete_records()
 #calling DB to get details
     query =(
     db.query(models.Student_data.student_id, 
