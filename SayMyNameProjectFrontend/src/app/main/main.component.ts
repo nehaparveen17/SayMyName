@@ -167,7 +167,7 @@ export class MainComponent {
 
   playAudio(): void {
     // Append the student name to the API URL as a query parameter
-    const apiUrl = `http://127.0.0.1:8081/getaudio?preferred_name=` + this.get_audio_for_phonetics;
+    const apiUrl = `http://10.28.9.191:8081/getaudio?preferred_name=` + this.get_audio_for_phonetics;
     this.ngxService.start()
     // Send a GET request to your backend API to generate and play the audio
     this.httpClient.get(apiUrl, { responseType: 'blob' })
@@ -405,7 +405,7 @@ export class MainComponent {
   // calling the service from the backend to get the required phonetics.
   private getPhonetics = (reqObj: any) => {
     this.ngxService.start();
-    this.httpClient.post('http://127.0.0.1:8081/createpost', reqObj).subscribe((data: any) => {
+    this.httpClient.post('http://10.28.9.191:8081/createpost', reqObj).subscribe((data: any) => {
       let requestedData: any = data
       if (requestedData?.status === "success") {
         this.ngxService.stop();
@@ -448,7 +448,7 @@ export class MainComponent {
   //API to capture user feedback
   private giveUserFeedback = (reqObj: any) => {
     this.ngxService.start();
-    this.httpClient.post('http://127.0.0.1:8081/userfeedback', reqObj).subscribe((data: any) => {
+    this.httpClient.post('http://10.28.9.191:8081/userfeedback', reqObj).subscribe((data: any) => {
       let requestedData: any = data
       if (requestedData?.status === "success") {
         this.ngxService.stop();
@@ -475,7 +475,7 @@ export class MainComponent {
   private savePhonetics = (reqObj: any) => {
     this.final_phonetics = reqObj?.phonetics_selection
     this.ngxService.start();
-    this.httpClient.post('http://127.0.0.1:8081/selection', reqObj).subscribe((data: any) => {
+    this.httpClient.post('http://10.28.9.191:8081/selection', reqObj).subscribe((data: any) => {
       let requestedData: any = data
       if (requestedData?.status === "success") {
         this.edit_button_flag = true;
