@@ -97,7 +97,7 @@ async def tt_speech(details:p_model_type.Post, db: Session= Depends(get_db)):
 
     #logic to get the phonetics from the DB
     phonetics_data = db.query(models.Phonetics).filter(models.Phonetics.names == new_student_details.preferred_name.lower()).all()
-    split_first_name = Splitword().seperating_name(first_name=new_dict["preferred_name"])
+    split_first_name = Splitword().seperating_name(word=new_dict["preferred_name"])
 
     preferred_phonetics = [x.phonetics for x in phonetics_data]
 
@@ -115,6 +115,7 @@ async def tt_speech(details:p_model_type.Post, db: Session= Depends(get_db)):
     ordered_phonetics.extend(preferred_phonetics)
     
     recommened_phonetics = []
+    print(f"recommended_phonetics: {recommened_phonetics}")
 
     for x in ordered_phonetics:
         if x not in recommened_phonetics:
